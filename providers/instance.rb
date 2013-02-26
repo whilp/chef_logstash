@@ -68,14 +68,13 @@ def create_config
     mode  00755
   end
 
-  logstash_service_name = logstash_service
   template "#{ instance_conf_dir }/#{ new_resource.name }.conf" do
     source 'logstash.conf.erb'
     owner  'root'
     group  'root'
     mode   00644
     variables :config => new_resource.state
-    notifies :restart, "runit_service[#{ logstash_service_name }]"
+    notifies :restart, "runit_service[#{ logstash_service }]"
   end
 end
 
