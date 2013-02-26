@@ -1,2 +1,2 @@
 #!/bin/sh
-chpst -o <%= @options['nofiles'] %> -u <%= @options['user'] %> <%= @options['dst_dir'] %>/logstash_<%= @options['version'] <%= @options['conf_dir'] %>/*.conf
+chpst -o <%= @options['nofiles'] %> -u <%= @options['user'] %> java -jar <%= @options['dst_dir'] %>/logstash_<%= @options['version'] %> agent -f <%= @options['conf_dir'] %>/*.conf
