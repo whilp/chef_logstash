@@ -37,5 +37,4 @@ suites:
 - name: instance
   run_list:
   - recipe[ls_test::instance]
-  - recipe[logstash]
   attributes: {}
