@@ -80,7 +80,7 @@ def create_config
 end
 
 def create_service_script
-  runit_service 'logstash' do
+  runit_service "logstash_#{ new_resource.name }" do
     cookbook 'logstash'
     options({
       :name     => new_resource.name,
