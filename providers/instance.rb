@@ -39,6 +39,7 @@ def fetch_logstash_jar
   remote_file "logstash_#{ new_resource.version }" do
     path     "#{ new_resource.dst_dir }/logstash_#{ new_resource.version }.jar"
     checksum new_resource.checksum
+    source   new_resource.url
     owner    'root'
     group    'root'
     mode     00644
