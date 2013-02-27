@@ -76,8 +76,19 @@ def create_service_script
 end
 
 def enable_service
-  service logstash_service(new_resource.name) do
-    action [:enable, :start]
+  ls_dir = logstash_conf_dir(new_resource.conf_dir, new_resource.name)
+  ls_svc = logstash_service(new_resource.name)
+
+  if ::File.directory?(ls_dir)
+    if logstash_has_no_configs?(ls_dir)
+      service ls_svc do
+        action [:enable, :start]
+      end
+    else
+      Chef::Log.info("#{ ls_dir } has no configs. Not enabling #{ ls_svc }.")
+    end
+  else
+    Chef::Log.info("#{ ls_dir } does not exist. Not enabling #{ ls_svc }.")
   end
 end
 
