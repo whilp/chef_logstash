@@ -61,14 +61,16 @@ def create_config
     mode  00755
   end
 
-  instance_conf_dir = "#{ new_resource.conf_dir }/#{ new_resource.name }"
+  instance_conf_dir = ::File.join('', new_resource.conf_dir, new_resource.name)
   directory instance_conf_dir do
     owner 'root'
     group 'root'
     mode  00755
   end
 
-  template "#{ instance_conf_dir }/#{ new_resource.name }.conf" do
+  # This might go away completely and move to the config lwrp
+  default_conf = ::File.join('', instance_conf_dir, "#{ new_resource.name }.conf")
+  template default_conf do
     source 'logstash.conf.erb'
     owner  'root'
     group  'root'
