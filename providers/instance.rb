@@ -83,6 +83,8 @@ end
 def create_service_script
   runit_service logstash_service(new_resource.name) do
     cookbook 'logstash'
+    run_template_name 'logstash'
+    log_template_name 'logstash'
     options({
       :name     => new_resource.name,
       :dst_dir  => new_resource.dst_dir,
