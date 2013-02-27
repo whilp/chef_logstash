@@ -39,8 +39,9 @@ def fetch_logstash_jar
     mode  00755
   end
 
+  jar_path = logstash_jar_with_path(new_resource.dst_dir, new_resource.version)
   remote_file "logstash_#{ new_resource.version }" do
-    path     ::File.join('', new_resource.dst_dir, "logstash_#{ new_resource.version }.jar")
+    path     jar_path
     checksum new_resource.checksum
     source   new_resource.url
     owner    'root'
@@ -58,16 +59,17 @@ def create_user_and_group
 end
 
 def create_service_script
+  jar_path = logstash_jar_with_path(new_resource.dst_dir, new_resource.version)
   runit_service logstash_service(new_resource.name) do
     cookbook 'logstash'
     run_template_name 'logstash'
     log_template_name 'logstash'
     options({
-      :name     => new_resource.name,
-      :dst_dir  => new_resource.dst_dir,
       :conf_dir => new_resource.conf_dir,
+      :jar_path => jar_path,
+      :name     => new_resource.name,
+      :nofiles  => new_resource.nofiles,
       :user     => new_resource.user,
-      :nofiles  => new_resource.nofiles
     })
   end
 end
