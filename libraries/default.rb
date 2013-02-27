@@ -10,7 +10,8 @@ def logstash_config_file(dir, name)
   ::File.join('', dir, "#{ name }.conf")
 end
 
-def logstash_has_configs?
+def logstash_has_configs?(dir)
+  ::Dir.entries(dir).empty?
 end
 
 def logstash_clean_configs
