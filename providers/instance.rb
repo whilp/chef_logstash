@@ -64,6 +64,7 @@ def create_service_script
     cookbook          'logstash'
     run_template_name 'logstash'
     log_template_name 'logstash'
+    action            :nothing
     options({
       :conf_dir => new_resource.conf_dir,
       :jar_path => jar_path,
