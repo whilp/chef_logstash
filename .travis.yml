@@ -1,0 +1,4 @@
+language: ruby
+script: rake test:quick
+rvm:
+  - 1.9.3
