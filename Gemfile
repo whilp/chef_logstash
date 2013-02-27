@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'rake'
+
 group :integration do
   gem 'berkshelf'
   gem 'test-kitchen', :git => 'git://github.com/opscode/test-kitchen.git', :branch => '1.0'
