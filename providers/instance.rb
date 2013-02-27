@@ -37,7 +37,7 @@ def fetch_logstash_jar
   end
 
   remote_file "logstash_#{ new_resource.version }" do
-    path     "#{ new_resource.dst_dir }/logstash_#{ new_resource.version }.jar"
+    path     ::File.join('', new_resource.dst_dir, "logstash_#{ new_resource.version }.jar")
     checksum new_resource.checksum
     source   new_resource.url
     owner    'root'
