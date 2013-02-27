@@ -17,6 +17,10 @@ action :create do
   fetch_logstash_jar
   create_user_and_group
   create_service_script
+  new_resource.updated_by_last_action(true)
+end
+
+action :enable do
   enable_service
   new_resource.updated_by_last_action(true)
 end
