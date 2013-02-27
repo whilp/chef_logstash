@@ -76,12 +76,12 @@ def create_config
     group  'root'
     mode   00644
     variables :config => new_resource.state
-    notifies :restart, "runit_service[#{ logstash_service }]"
+    notifies :restart, "runit_service[#{ logstash_service(new_resource.name) }]"
   end
 end
 
 def create_service_script
-  runit_service logstash_service do
+  runit_service logstash_service(new_resource.name) do
     cookbook 'logstash'
     options({
       :name     => new_resource.name,
@@ -94,17 +94,13 @@ def create_service_script
 end
 
 def enable_service
-  service logstash_service do
+  service logstash_service(new_resource.name) do
     action [:enable, :start]
   end
 end
 
 def disable_service
-  service logstash_service do
+  service logstash_service(new_resource.name) do
     action [:disable, :stop]
   end
-end
-
-def logstash_service
-  "logstash_#{ new_resource.name }"
 end
