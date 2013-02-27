@@ -61,7 +61,7 @@ end
 def create_service_script
   jar_path = logstash_jar_with_path(new_resource.dst_dir, new_resource.version)
   runit_service logstash_service(new_resource.name) do
-    cookbook 'logstash'
+    cookbook          'logstash'
     run_template_name 'logstash'
     log_template_name 'logstash'
     options({
