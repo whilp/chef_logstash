@@ -17,7 +17,6 @@ action :create do
   fetch_logstash_jar
   create_user_and_group
   create_service_script
-  create_config
   enable_service
   new_resource.updated_by_last_action(true)
 end
@@ -51,32 +50,6 @@ def create_user_and_group
 
   user new_resource.user do
     gid new_resource.group
-  end
-end
-
-def create_config
-  directory new_resource.conf_dir do
-    owner 'root'
-    group 'root'
-    mode  00755
-  end
-
-  instance_conf_dir = ::File.join('', new_resource.conf_dir, new_resource.name)
-  directory instance_conf_dir do
-    owner 'root'
-    group 'root'
-    mode  00755
-  end
-
-  # This might go away completely and move to the config lwrp
-  default_conf = ::File.join('', instance_conf_dir, "#{ new_resource.name }.conf")
-  template default_conf do
-    source 'logstash.conf.erb'
-    owner  'root'
-    group  'root'
-    mode   00644
-    variables :config => new_resource.state
-    notifies :restart, "runit_service[#{ logstash_service(new_resource.name) }]"
   end
 end
 
