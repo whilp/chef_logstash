@@ -6,7 +6,6 @@ def load_current_resource
 end
 
 action :create do
-  create_user_and_group
   create_config
   new_resource.updated_by_last_action(true)
 end
