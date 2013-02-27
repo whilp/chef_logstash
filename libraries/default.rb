@@ -14,5 +14,9 @@ def logstash_has_no_configs?(dir)
   ::Dir.glob(::File.join('', dir, '*.conf'))
 end
 
+def logstash_jar_with_path(dir, version)
+  ::File.join('', dir, "logstash_#{ version }.jar")
+end
+
 def logstash_clean_configs
 end
