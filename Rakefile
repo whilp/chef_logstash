@@ -1,5 +1,4 @@
 require 'tailor/rake_task'
-require 'kitchen/rake_tasks'
 
 task :default => 'test:quick'
 
@@ -7,7 +6,12 @@ namespace :test do
 
   Tailor::RakeTask.new
 
-  Kitchen::RakeTasks.new
+  begin
+    require 'kitchen/rake_tasks'
+    Kitchen::RakeTasks.new
+  rescue LoadError
+    puts '>>>>> Kitchen gem not loaded, omitting tasks' unless ENV['CI']
+  end
 
   desc 'Run all of the quick tests.'
   task :quick do
