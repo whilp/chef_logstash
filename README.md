@@ -27,7 +27,7 @@
 
 This code follows the [Ruby Style Guide](https://github.com/miah/ruby-style-guide) and all contributions should as well.
 
-The code style is checked by `tailor` and can be checked by executing `rake test:tailor` or `tailor`. This is automatically checked by [Travis-CI](https://travis-ci.org/miah/chef_logstash).
+The code style is checked by [tailor](https://github.com/turboladen/tailor) and can be checked by executing `rake test:tailor` or `tailor`. This is automatically checked by [Travis-CI](https://travis-ci.org/miah/chef_logstash).
 
 # Author
 
