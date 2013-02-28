@@ -6,18 +6,18 @@ def load_current_resource
 end
 
 action :create do
-  create_config
+  create_config_dir
   new_resource.updated_by_last_action(true)
 end
 
 action :destroy do
-  destroy_config
+  destroy_config_dir
   new_resource.updated_by_last_action(true)
 end
 
 private
 
-def create_config
+def create_config_dir
   directory new_resource.conf_dir do
     owner 'root'
     group 'root'
@@ -30,20 +30,11 @@ def create_config
     group 'root'
     mode  00755
   end
-
-  template logstash_config_file(ls_dir, new_resource.name) do
-    source 'logstash.conf.erb'
-    owner  'root'
-    group  'root'
-    mode   00644
-    variables :config => new_resource.state
-    notifies :restart, "runit_service[#{ logstash_service(new_resource.name) }]"
-  end
 end
 
-def destroy_config
+def destroy_config_dir
   ls_dir = logstash_conf_dir(new_resource.conf_dir, new_resource.name)
-  file logstash_config_file(ls_dir, new_resource.name) do
+  directory logstash_config_file(ls_dir, new_resource.name) do
     action :delete
   end
 end
