@@ -1,13 +1,44 @@
 # chef_logstash cookbook
 
+This is a Library Style cookbook that provides Resource Providers to create and
+manage your [Logstash](http://logstash.net/) environment.
+
 # Requirements
+
+The following cookbooks are required to use this cookbook:
+
+  + [runit](https://github.com/opscode-cookbooks/runit)
+  + [java::openjdk](https://github.com/opscode-cookbooks/java)
 
 # Usage
 
 # Resources and Providers
 
 ## logstash_instance
+The intention is to provide a stable interface to creating instances of
+Logstash on your servers. This means creating a instance via
+`logstash_instance` will download, install, and setup a functional
+instance of Logstash but it does not handle any configuration details.
 
+The following actions are supported and `:create` is the default:
+
+ + `:create`
+ + `:enable`
+ + `:destroy`
+
+These attributes are defined in the resource:
+
+ + `:name`
+ + `:user`
+ + `:group`
+ + `:conf_dir`
+ + `:dst_dir`
+ + `:version`
+ + `:url`
+ + `:checksum`
+ + `:nofiles`
+
+Usage example:
 ```ruby
   logstash_instance 'test' do
     url node.logstash.url
