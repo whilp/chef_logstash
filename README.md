@@ -6,6 +6,17 @@
 
 # Resources and Providers
 
+## logstash_instance
+
+```ruby
+  logstash_instance 'test' do
+    url node.logstash.url
+    checksum node.logstash.checksum
+  end
+```
+
+## logstash_config
+
 # Contributing
 
 ## Testing
