@@ -22,7 +22,12 @@ instance of Logstash but it does not handle any configuration details.
 
 The following actions are supported and `:create` is the default:
 
- + `:create`
+ + `:create` - Creates a named instance of Logstash. This action will
+download logstash `:version` to the `:dst_dir`. It creates the `:user`
+and `:group` used to run Logstash. And finally it creates the `runit`
+resource required to manage the service. It does not _start_ the service
+as that is a job for `:enable`.
+
  + `:enable`
  + `:destroy`
 
