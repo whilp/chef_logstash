@@ -38,8 +38,17 @@ class Chef
         set_or_return(:plugin_config, arg, :kind_of => [Hash])
       end
 
-      unless @plugin_name.nil?
-        include const_get("Logstash::#{ @plugin_name }::#{ @plugin_type }")
+      def plugin_class
+        Object.const_get('LogstashConfig').const_get(@plugin_type).const_get(@plugin_name)
+      end
+
+      # Instantiate plugin subclass
+      def config(arg={})
+        c = plugin_class.new(name, run_context)
+        # Iterate over the hash of resource arguments.
+        arg.each do |k, v|
+          c.send(k, v)
+        end
       end
 
     end
