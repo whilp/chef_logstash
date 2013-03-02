@@ -35,14 +35,18 @@ describe 'ResourceLogstashConfig', 'Tests for Chef::Resource::LogstashConfig' do
     end
   end
 
-  describe 'Dynamic Module loading test' do
+  describe 'Can spawn sub-resources' do
 
-    it "inherits the Input::File module" do
+    it "Creates a LogstashConfig::Input::File resource" do
       @logstashconfig.instance('instance_name')
       @logstashconfig.plugin_name('File')
       @logstashconfig.plugin_type('Input')
 
-      @logstashconfig.must_respond_to :path
+      assert_kind_of(Chef::Resource, @logstashconfig)
+      assert_respond_to(@logstashconfig, :config)
+
+      @logstashconfig.config({ 'debug' => true })
+
     end
   end
 
