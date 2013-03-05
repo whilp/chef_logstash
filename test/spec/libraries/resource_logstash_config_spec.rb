@@ -12,7 +12,7 @@ describe 'ResourceLogstashConfig', 'Tests for Chef::Resource::LogstashConfig' do
   end
   let(:events) { Chef::EventDispatch::Dispatcher.new }
   let(:run_context) { Chef::RunContext.new(node, {}, events) }
-  let(:instance_name) { 'test_instance'}
+  let(:instance_name) { 'test_instance' }
 
   before :each do
     @logstashconfig = Chef::Resource::LogstashConfig.new(instance_name, run_context)
