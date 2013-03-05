@@ -16,7 +16,7 @@ class Chef
         @resource_name = :logstash_config
         @provider = Chef::Provider::LogstashConfig
         @action = :create
-        @allowed_actions = [:create, :destroy, :nothing]
+        @allowed_actions = [:create, :destroy, :enable, :nothing]
 
         @plugin_name = nil
         @plugin_type = nil
