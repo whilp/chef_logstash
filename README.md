@@ -71,7 +71,7 @@ These attributes are defined in the resource:
 
  + `:instance` - The Logstash instance this plugin is associated with.
  + `:plugin` - One of the numerous [Logstash plugins](http://logstash.net/docs/1.1.9/).
- + `:plugin_type` - Accepts one of 'inputs', 'filters', 'outputs'
+ + `:plugin_type` - Accepts one of 'input', 'filter', 'output'
  + `:plugin_config`- A hash containing the key-value pairs that configure
 the plugin.
 
