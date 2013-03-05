@@ -46,13 +46,28 @@ These attributes are defined in the resource:
 
 Usage example:
 ```ruby
-  logstash_instance 'test' do
-    url node.logstash.url
+  logstash_instance 'default' do
+    url      node.logstash.url
     checksum node.logstash.checksum
+    action   [:create]
   end
 ```
 
 ## logstash_config
+
+Usage example:
+```ruby
+  logstash_config 'log_files' do
+    instance    'default'
+    plugin      'file'
+    plugin_type 'input'
+    plugin_config({
+      path => ['/var/log/httpd/*_log'],
+      type => 'apache2'
+    })
+    action [:create, :enable]
+  end
+```
 
 # Contributing
 
