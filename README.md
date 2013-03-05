@@ -49,11 +49,32 @@ Usage example:
   logstash_instance 'default' do
     url      node.logstash.url
     checksum node.logstash.checksum
-    action   [:create]
+    action   [:create, :enable]
   end
 ```
 
 ## logstash_config
+
+The following actions are supported and `:create` is the default:
+
+ + `:create` - Creates a named configuration for a specific Logstash plugin.
+This action will create a sub-resource based on the `plugin_type` and `plugin`
+specified. The `plugin_config` attribute will be passed to the sub-resource
+during resource creation. We use the `instance` attribute to link this
+configuration to a specific Logstash instance.
+
+ + `:enable` - Ensures the configuration for the specified instance has been loaded.
+ + `:destroy` - Remove the named configuration.
+ + `:nothing` - Does nothing, except define the resource with the associated
+attributes.
+
+These attributes are defined in the resource:
+
+ + `:instance` - The Logstash instance this plugin is associated.
+ + `:plugin` - One of the numerous [Logstash plugins](http://logstash.net/docs/1.1.9/).
+ + `:plugin_type` - Accepts one of 'inputs', 'filters', 'outputs'
+ + `:plugin_config`- A hash containing the key-value pairs that configure
+the plugin.
 
 Usage example:
 ```ruby
@@ -77,7 +98,7 @@ Usage example:
 
 ## Code Style
 
-This code follows the [Ruby Style Guide](https://github.com/miah/ruby-style-guide) and all contributions should as well.
+This code follows the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) and all contributions should as well.
 
 The code style is checked by [tailor](https://github.com/turboladen/tailor) and can be checked by executing `rake test:tailor` or `tailor`. This is automatically checked by [Travis-CI](https://travis-ci.org/miah/chef_logstash).
 
