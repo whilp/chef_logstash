@@ -26,25 +26,16 @@ class Chef
         set_or_return(:instance, arg, :kind_of => [String])
       end
 
+      def plugin(arg=nil)
+        set_or_return(:plugin, arg, :kind_of => [String])
+      end
+
       def plugin_type(arg=nil)
         set_or_return(:plugin_type, arg, :kind_of => [String])
       end
 
-      def plugin_name(arg=nil)
-        set_or_return(:plugin_name, arg, :kind_of => [String])
-      end
-
-      def plugin_class
-        Object.const_get('LogstashConfig').const_get(@plugin_type).const_get(@plugin_name)
-      end
-
-      # Instantiate plugin subclass
-      def config(arg={})
-        c = plugin_class.new(name, run_context)
-        # Iterate over the hash of resource arguments.
-        arg.each do |k, v|
-          c.send(k, v)
-        end
+      def plugin_config(arg=nil)
+        set_or_return(:plugin_config, arg, :kind_of => [Hash])
       end
 
     end
