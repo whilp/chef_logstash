@@ -34,10 +34,6 @@ class Chef
         set_or_return(:plugin_name, arg, :kind_of => [String])
       end
 
-      def plugin_config(arg=nil)
-        set_or_return(:plugin_config, arg, :kind_of => [Hash])
-      end
-
       def plugin_class
         Object.const_get('LogstashConfig').const_get(@plugin_type).const_get(@plugin_name)
       end
