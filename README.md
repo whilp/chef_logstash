@@ -62,7 +62,6 @@ This action will create a sub-resource based on the `plugin_type` and `plugin`
 specified. The `plugin_config` attribute will be passed to the sub-resource
 during resource creation. We use the `instance` attribute to link this
 configuration to a specific Logstash instance.
-
  + `:enable` - Ensures the configuration for the specified instance has been loaded.
  + `:destroy` - Remove the named configuration.
  + `:nothing` - Does nothing, except define the resource with the associated
