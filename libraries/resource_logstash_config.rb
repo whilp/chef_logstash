@@ -9,7 +9,7 @@ class Chef
 
       include Chef::Mixin::Securable
 
-      attr_reader :plugin_name, :plugin_name, :plugin_object
+      attr_reader :plugin_name, :plugin_name
 
       def initialize(name, run_context=nil)
         super
