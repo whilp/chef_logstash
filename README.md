@@ -30,6 +30,7 @@ as that is a job for `:enable`.
 
  + `:enable`
  + `:destroy`
+ + `:nothing`
 
 These attributes are defined in the resource:
 
