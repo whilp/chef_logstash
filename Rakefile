@@ -23,11 +23,13 @@ namespace :test do
   desc 'Run all of the quick tests.'
   task :quick do
     Rake::Task['test:tailor'].invoke
+    Rake::Task['test:minitest'].invoke
   end
 
   desc 'Run _all_ the tests. Go get a coffee.'
   task :complete do
     Rake::Task['test:tailor'].invoke
+    Rake::Task['test:minitest'].invoke
     Rake::Task['test:kitchen:all'].invoke
   end
 
