@@ -77,13 +77,13 @@ the plugin.
 
 Usage example:
 ```ruby
-  logstash_config 'log_files' do
+  logstash_config 'httpd_log_files' do
     instance    'default'
     plugin      'file'
     plugin_type 'input'
     plugin_config({
       path => ['/var/log/httpd/*_log'],
-      type => 'apache2'
+      type => 'httpd'
     })
     action [:create, :enable]
   end
