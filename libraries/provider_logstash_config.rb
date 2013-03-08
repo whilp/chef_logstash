@@ -1,3 +1,6 @@
+require 'chef/provider'
+require File.expand_path('../helpers', __FILE__)
+
 class Chef
   class Provider
     class LogstashConfig < Chef::Provider
