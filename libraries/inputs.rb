@@ -5,7 +5,7 @@ class Chef
   class Resource
     class Logstash
       class Input
-        class File < Chef::Resource::LogstashConfig
+        class File < Chef::Resource::Logstash::Config
 
           def initialize(name, run_context=nil)
             super
