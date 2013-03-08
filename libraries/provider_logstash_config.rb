@@ -3,7 +3,8 @@ require File.expand_path('../helpers', __FILE__)
 
 class Chef
   class Provider
-    class LogstashConfig < Chef::Provider
+    class Logstash
+      class Config < Chef::Provider
 
       def initialize()
         super
