@@ -6,7 +6,7 @@ class Chef
     class Logstash
       class Config < Chef::Provider
 
-        include Logstash::Helpers
+        include Helpers
 
         def initialize()
           super
