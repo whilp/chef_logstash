@@ -27,27 +27,19 @@ class Chef
 
         private
 
-      def create_config_dir
-        directory new_resource.conf_dir do
-          owner 'root'
-          group 'root'
-          mode  00755
+        def lookup_plugin_class
+          Object.const_get('Logstash').const_get(@plugin_type).const_get(@plugin)
         end
 
-        ls_dir = logstash_conf_dir(new_resource.conf_dir, new_resource.name)
-        directory ls_dir do
-          owner 'root'
-          group 'root'
-          mode  00755
+        def plugin_class
+          @plugin_class = lookup_plugin_class
         end
-      end
 
-      def destroy_config_dir
-        ls_dir = logstash_conf_dir(new_resource.conf_dir, new_resource.name)
-        directory logstash_config_file(ls_dir, new_resource.name) do
-          action :delete
+        def plugin_object
+          if @plugin_object.nil?
+            @plugin_object = @plugin_class.new(name, run_context)
+          end
         end
-      end
 
         # Instantiate plugin subclass
         def configure_plugin(arg={})
