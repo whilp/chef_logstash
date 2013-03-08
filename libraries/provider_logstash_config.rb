@@ -22,7 +22,10 @@ class Chef
           new_resource.updated_by_last_action(true)
         end
 
-      private
+        def action_enable
+        end
+
+        private
 
       def create_config_dir
         directory new_resource.conf_dir do
