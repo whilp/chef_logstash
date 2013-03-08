@@ -1,7 +1,6 @@
 
 require 'chef/resource'
 require 'chef/mixin/securable'
-require File.expand_path('../inputs', __FILE__)
 
 class Chef
   class Resource
