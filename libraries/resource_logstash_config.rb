@@ -14,7 +14,7 @@ class Chef
         def initialize(name, run_context=nil)
           super
           @resource_name = :logstash_config
-          @provider = Chef::Provider::LogstashConfig
+          @provider = Chef::Provider::Logstash::Config
           @action = :create
           @allowed_actions = [:create, :destroy, :enable, :nothing]
 
