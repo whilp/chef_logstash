@@ -1,4 +1,4 @@
 language: ruby
-script: rake test:quick
+script: rake test:minitest
 rvm:
   - 1.9.3
