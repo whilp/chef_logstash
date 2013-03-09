@@ -48,12 +48,12 @@ class Chef
         end
 
         def create_config_file
-          file new_resource.conf_dir do
-            owner 'root'
-            group 'root'
-            mode  00755
-            content render_config_file
-          end
+          f = Chef::Resource::File.new(new_resource.conf_dir, run_context)
+          f.owner 'root'
+          f.group 'root'
+          f.mode 00755
+          f.content render_config_file
+          f.run_action(:create)
         end
 
         def destroy_config_file
