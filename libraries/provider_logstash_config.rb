@@ -8,10 +8,6 @@ class Chef
 
         include Helpers
 
-        def initialize()
-          super
-        end
-
         def action_create
           create_config_file
           new_resource.updated_by_last_action(true)
