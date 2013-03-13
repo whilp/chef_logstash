@@ -80,7 +80,7 @@ def enable_service
   ls_svc = logstash_service(new_resource.name)
 
   if ::File.directory?(ls_dir)
-    if logstash_has_no_configs?(ls_dir)
+    if logstash_has_configs?(ls_dir)
       service ls_svc do
         action [:enable, :start]
       end

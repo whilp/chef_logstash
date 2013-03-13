@@ -12,7 +12,7 @@ module Helpers
     ::File.join('', dir, "#{ name }.conf")
   end
 
-  def logstash_has_no_configs?(dir)
+  def logstash_has_configs?(dir)
     ::Dir.glob(::File.join('', dir, '*.conf'))
   end
 
