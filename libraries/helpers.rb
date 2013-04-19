@@ -1,3 +1,5 @@
+require 'chef/resource'
+
 module Helpers
 
   def logstash_service(name)
