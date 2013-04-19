@@ -10,7 +10,7 @@ class Chef
 
         attr_reader :plugin_class
 
-        def initialize()
+        def initialize(new_resource, run_context=nil)
           @plugin_class = lookup_plugin_class
           super
         end
