@@ -9,8 +9,6 @@ class Chef
 
         include Chef::Mixin::Securable
 
-        attr_reader :instance, :plugin_name, :plugin_name, :plugin_config
-
         def initialize(name, run_context=nil)
           super
           @resource_name = :logstash_config
