@@ -75,9 +75,6 @@ class Chef
         def render_config_file
         end
 
-        def lookup_logstash_resource
-        end
-
       end
     end
   end
