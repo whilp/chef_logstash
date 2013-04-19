@@ -1,5 +1,5 @@
 
-actions :create, :destroy, :enable
+actions :create, :destroy, :enable, :nothing
 
 def initialize(*args)
   super
