@@ -8,6 +8,13 @@ class Chef
 
         include Helpers
 
+        attr_reader :plugin_class
+
+        def initialize()
+          @plugin_class = lookup_plugin_class
+          super
+        end
+
         def action_create
           create_config_file
           new_resource.updated_by_last_action(true)
@@ -24,17 +31,15 @@ class Chef
         private
 
         def lookup_plugin_class
-          Object.const_get('Logstash').const_get(@plugin_type).const_get(@plugin)
-        end
-
-        def plugin_class
-          @plugin_class = lookup_plugin_class
+          begin
+            Object.const_get('Logstash').const_get(@plugin_type).const_get(@plugin)
+          rescue e
+            puts "some bad shit happened: #{ e }"
+          end
         end
 
         def plugin_object
-          if @plugin_object.nil?
-            @plugin_object = @plugin_class.new(name, run_context)
-          end
+          lookup_logstash_resource(new_resource.plugin_type, @plugin_name) || @plugin_class.new(name, run_context)
         end
 
         # Instantiate plugin subclass
