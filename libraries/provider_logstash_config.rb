@@ -43,12 +43,16 @@ class Chef
         end
 
         # Instantiate plugin subclass
-        def configure_plugin(arg={})
-          plugin_object
-
-          # Iterate over the hash of resource arguments.
-          arg.each do |k, v|
-            @plugin_object.send(k, v)
+        def configure_plugin(arg)
+          begin
+            if arg.is_a?(Enumerable)
+              # Iterate over the hash of resource arguments.
+              arg.each do |k, v|
+                plugin_object.send(k, v)
+              end
+            end
+          rescue e
+            puts "some bad shit happened: #{ e }"
           end
         end
 
