@@ -15,6 +15,13 @@ class Chef
           super
         end
 
+        def whyrun_supported?
+          false
+        end
+
+        def load_current_resource
+        end
+
         def action_create
           create_config_file
           new_resource.updated_by_last_action(true)
