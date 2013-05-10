@@ -41,46 +41,48 @@ class Chef
         private
 
         def fetch_logstash_jar
-          directory new_resource.dst_dir do
-            owner 'root'
-            group 'root'
-            mode  00755
-          end
+          d = Chef::Resource::Directory.new(new_resource.dst_dir, run_context)
+          d.owner 'root'
+          d.group 'root'
+          d.mode  00755
+          d.run_action(:create)
 
           jar_path = logstash_jar_with_path(new_resource.dst_dir, new_resource.version)
-          remote_file "logstash_#{ new_resource.version }" do
-            path     jar_path
-            checksum new_resource.checksum
-            source   new_resource.url
-            owner    'root'
-            group    'root'
-            mode     00644
-          end
+          r = Chef::Resource::Remote_file("logstash_#{ new_resource.version }", run_context)
+          r.path     jar_path
+          r.checksum new_resource.checksum
+          r.source   new_resource.url
+          r.owner    'root'
+          r.group    'root'
+          r.mode     00644
+          r.run_action(:create)
         end
 
         def create_user_and_group
-          group new_resource.group
+          g = Chef::Resource::Group(new_resource.group, run_context)
+          g.run_action(:create)
 
-          user new_resource.user do
-            gid new_resource.group
-          end
+          u = Chef::Resource::User(new_resource.user, run_context)
+          u.gid new_resource.group
+          u.run_action(:create)
         end
 
         def create_service_script
           jar_path = logstash_jar_with_path(new_resource.dst_dir, new_resource.version)
-          runit_service logstash_service(new_resource.name) do
-            cookbook          'logstash'
-            run_template_name 'logstash'
-            log_template_name 'logstash'
-            action            :nothing
-            options({
+
+          r = Chef::Resource::Runit_service(logstash_service(new_resource.name), run_context)
+          r.cookbook          'logstash'
+          r.run_template_name 'logstash'
+          r.log_template_name 'logstash'
+          r.action            :nothing
+          r.options({
               :conf_dir => new_resource.conf_dir,
               :jar_path => jar_path,
               :name     => new_resource.name,
               :nofiles  => new_resource.nofiles,
               :user     => new_resource.user,
             })
-          end
+          r.run_action(:create)
         end
 
         def enable_service
@@ -89,9 +91,8 @@ class Chef
 
           if ::File.directory?(ls_dir)
             if logstash_has_configs?(ls_dir)
-              service ls_svc do
-                action [:enable, :start]
-              end
+              s = Chef::Resource::Service(ls_svc, run_context)
+              s.run_action([:enable, :start])
             else
               Chef::Log.info("#{ ls_dir } has no configs. Not enabling #{ ls_svc }.")
             end
@@ -101,9 +102,8 @@ class Chef
         end
 
         def disable_service
-          service logstash_service(new_resource.name) do
-            action [:disable, :stop]
-          end
+          s = Chef::Resource::Service(logstash_service(new_resource.name), run_context)
+          s.run_action([:disable, :stop])
         end
 
       end
