@@ -58,7 +58,7 @@ class Chef
                 plugin_object.send(k, v)
               end
             end
-          rescue e
+          rescue RuntimeError => e
             puts "some bad shit happened: #{ e }"
           end
         end
