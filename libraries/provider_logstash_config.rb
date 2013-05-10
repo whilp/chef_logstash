@@ -39,8 +39,8 @@ class Chef
 
         def lookup_plugin_class
           begin
-            Object.const_get('Logstash').const_get(@plugin_type).const_get(@plugin)
-          rescue e
+            Object.const_get('Chef').const_get('Resource').const_get('Logstash').const_get(@plugin_type).const_get(@plugin)
+          rescue RuntimeError => e
             puts "some bad shit happened: #{ e }"
           end
         end
