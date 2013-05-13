@@ -30,7 +30,8 @@ class Chef
 
         def action_create
           fetch_logstash_jar
-          create_user_and_group
+          create_user
+          create_group
           create_service_script
           new_resource.updated_by_last_action(true)
         end
