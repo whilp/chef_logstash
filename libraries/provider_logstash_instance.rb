@@ -5,6 +5,10 @@ class Chef
     class Logstash
       class Instance < Chef::Provider
 
+        def initialize(new_resource, run_context=nil)
+          super
+        end
+
         def whyrun_supported?
           false
         end
