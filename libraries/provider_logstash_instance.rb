@@ -48,25 +48,7 @@ class Chef
 
         private
 
-        def fetch_logstash_jar
-          d = Chef::Resource::Directory.new(new_resource.dst_dir, run_context)
-          d.owner 'root'
-          d.group 'root'
-          d.mode  00755
-          d.run_action(:create)
-
-          jar_path = logstash_jar_with_path(new_resource.dst_dir, new_resource.version)
-          r = Chef::Resource::Remote_file("logstash_#{ new_resource.version }", run_context)
-          r.path     jar_path
-          r.checksum new_resource.checksum
-          r.source   new_resource.url
-          r.owner    'root'
-          r.group    'root'
-          r.mode     00644
-          r.run_action(:create)
-        end
-
-        def create_user_and_group
+        def create_user
           g = Chef::Resource::Group(new_resource.group, run_context)
           g.run_action(:create)
 
