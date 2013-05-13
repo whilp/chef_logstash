@@ -52,6 +52,9 @@ class Chef
           g = Chef::Resource::Group(new_resource.group, run_context)
           g.run_action(:create)
 
+        end
+
+        def create_group
           u = Chef::Resource::User(new_resource.user, run_context)
           u.gid new_resource.group
           u.run_action(:create)
