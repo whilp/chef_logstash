@@ -44,6 +44,24 @@ class Chef
           set_or_return(:checksum, arg, :kind_of => String, :required => true)
         end
 
+        def install_type(arg=nil)
+          set_or_return(:install_type,
+                        arg,
+                        :kind_of => String,
+                        :required => true,
+                        :equal_to => %w(jar debian rhel),
+                        :default => 'jar')
+        end
+
+        def service_type(arg=nil)
+          set_or_return(:service_type,
+                        arg,
+                        :kind_of => String,
+                        :required => true,
+                        :equal_to => %w(init runit),
+                        :default => 'init')
+        end
+
         def nofiles(arg=nil)
           set_or_return(:nofiles, arg, :kind_of => Fixnum, :default => 1024)
         end
