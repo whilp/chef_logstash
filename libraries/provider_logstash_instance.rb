@@ -21,7 +21,10 @@ class Chef
           new_resource.version
           new_resource.url
           new_resource.checksum
-          new_resource.nofiles
+          new_resource.install_type
+          new_resource.install_options
+          new_resource.service_type
+          new_resource.service_options
           new_resource.state
         end
 
