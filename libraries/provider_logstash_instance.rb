@@ -37,12 +37,12 @@ class Chef
         end
 
         def action_destroy
-          enable_service
+          disable_service
           new_resource.updated_by_last_action(true)
         end
 
         def action_enable
-          disable_service
+          enable_service
           new_resource.updated_by_last_action(true)
         end
 
