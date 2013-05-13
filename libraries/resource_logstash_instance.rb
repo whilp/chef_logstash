@@ -44,6 +44,10 @@ class Chef
           set_or_return(:checksum, arg, :kind_of => String, :required => true)
         end
 
+        def install_options(arg=nil)
+          set_or_return(:install_options, arg, :kind_of => Hash)
+        end
+
         def install_type(arg=nil)
           set_or_return(:install_type,
                         arg,
@@ -51,6 +55,10 @@ class Chef
                         :required => true,
                         :equal_to => %w(jar debian rhel),
                         :default => 'jar')
+        end
+
+        def service_options(arg=nil)
+          set_or_return(:install_options, arg, :kind_of => Hash)
         end
 
         def service_type(arg=nil)
