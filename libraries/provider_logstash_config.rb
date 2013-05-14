@@ -46,7 +46,7 @@ class Chef
         end
 
         def plugin_object
-          lookup_logstash_resource(new_resource.plugin_type, @plugin_name) || @plugin_class.new(name, run_context)
+          lookup_resource(new_resource.plugin_type, @plugin_name) || @plugin_class.new(name, run_context)
         end
 
         # Instantiate plugin subclass

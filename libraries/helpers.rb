@@ -26,7 +26,7 @@ module Helpers
     confdir = lookup_logstash_confdir(name)
     i = logstash_has_configs(confdir)
     i.each do |config|
-      unless lookup_logstash_resource('LogstashConfig', i)
+      unless lookup_resource('LogstashConfig', i)
         logstash_delete_old_config(::File.join('', confdir, i))
       end
     end
@@ -37,7 +37,12 @@ module Helpers
     f.run_action(:delete)
   end
 
-  def lookup_logstash_resource(type, name)
+  # Finds a resource if it exists in the collection.
+  # @param type [String] The resources proper name, eg LogstashInstance or LogstashConfig
+  # @param name [String] The unique name of that resource.
+  # @return [Resource] Hopefully the resource object you were looking for.
+  #
+  def lookup_resource(type, name)
     begin
       self.run_context.resource_collection.find(type, name)
     rescue RuntimeError => e
@@ -46,7 +51,7 @@ module Helpers
   end
 
   def lookup_logstash_confdir(name)
-    l = lookup_logstash_resource('LogstashInstance', name)
+    l = lookup_resource('LogstashInstance', name)
     l.conf_dir
   end
 
