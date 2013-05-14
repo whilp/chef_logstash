@@ -39,9 +39,8 @@ module Helpers
 
   def lookup_logstash_resource(type, name)
     begin
-      r = Chef::ResourceCollection.new
-      r.find("#{ type }[#{ name }]")
-    rescue e
+      self.run_context.resource_collection.find(type, name)
+    rescue RuntimeError => e
       puts "more error fu: #{ e }"
     end
   end
