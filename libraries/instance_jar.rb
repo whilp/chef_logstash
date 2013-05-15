@@ -3,9 +3,7 @@ require 'net/http'
 require 'uri'
 require File.expand_path('../helpers', __FILE__)
 
-class Logstash
-  class Instance
-    class Jar < Chef::Provider::Logstash::Instance
+class Jar
 
       include Helpers
 
