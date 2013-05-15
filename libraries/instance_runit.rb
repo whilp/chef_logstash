@@ -10,17 +10,17 @@ class Runit
     @run_context = run_context
   end
 
-      def create
-        create_service_script
-      end
+  def create
+    create_service_script
+  end
 
-      def enable
-        enable_service
-      end
+  def enable
+    enable_service
+  end
 
-      def disable
-        disable_service
-      end
+  def disable
+    disable_service
+  end
 
       private
 
