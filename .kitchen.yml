@@ -37,6 +37,7 @@ platforms:
 suites:
 - name: instance
   run_list:
+  - recipe[runit::default]
   - recipe[ls_test::instance]
   attributes:
     logstash:
