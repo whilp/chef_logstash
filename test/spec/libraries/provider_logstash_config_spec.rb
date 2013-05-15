@@ -10,25 +10,44 @@ describe 'ProviderLogstashConfig', 'Tests for Chef::Provider::Logstash::Config' 
     node.automatic['platform_version'] = '12.04'
     node
   end
-  let(:events) { Chef::EventDispatch::Dispatcher.new }
-  let(:run_context) { Chef::RunContext.new(node, {}, events) }
+
   let(:instance_name) { 'test_instance' }
 
+  let(:events) { Chef::EventDispatch::Dispatcher.new }
+  let(:run_context) { Chef::RunContext.new(node, {}, events) }
+  let(:new_resource) { Chef::Resource::Logstash::Config.new(instance_name) }
+  let(:current_resource) { Chef::Resource::Logstash::Config.new(instance_name) }
+  let(:provider) { Chef::Provider::Logstash::Config.new(instance_name, run_context) }
+
   before :each do
-    @logstashconfig = Chef::Provider::Logstash::Config.new(instance_name, run_context)
+    provider.stub(:load_current_resource).and_return(current_resource)
+    provider.new_resource = new_resource
+    provider.current_resource = current_resource
   end
 
-  describe 'Parameter tests for Chef::Provider::Logstash::Config' do
-    it "has a 'create' action" do
-      assert_respond_to(@logstashconfig, :action_create)
+  describe 'Chef::Provider::Logstash::Config actions' do
+
+    describe 'create' do
+      it "has a 'create' action" do
+        provider.run_action(:create)
+      end
     end
 
-    it "has a 'enable' action" do
-      assert_respond_to(@logstashconfig, :action_enable)
+    describe 'enable' do
+      before do
+        provider.current_resource.running(false)
+      end
+
+      it "has a 'enable' action" do
+        provider.run_action(:enable)
+      end
     end
 
-    it "has a 'destroy' action" do
-      assert_respond_to(@logstashconfig, :action_destroy)
+    describe 'destroy' do
+      it "has a 'destroy' action" do
+        provider.run_action(:destroy)
+      end
     end
+
   end
 end
