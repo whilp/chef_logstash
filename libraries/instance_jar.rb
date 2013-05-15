@@ -5,7 +5,7 @@ require File.expand_path('../helpers', __FILE__)
 
 class Jar
 
-      include Helpers
+  include Helpers
 
       def initialize(new_resource, run_context=nil)
         super
