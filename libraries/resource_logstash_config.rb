@@ -4,8 +4,7 @@ require 'chef/mixin/securable'
 
 class Chef
   class Resource
-    class Logstash
-      class Config < Chef::Resource
+    class LogstashConfig < Chef::Resource
 
         include Chef::Mixin::Securable
 
