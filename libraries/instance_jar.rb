@@ -50,10 +50,7 @@ class Jar
       end
     end
 
-      def remove_logstash_jar
-        f = Chef::Resource::File(jar_path, run_context)
-        f.run_action(:delete)
-      end
+  end
 
     end
   end
