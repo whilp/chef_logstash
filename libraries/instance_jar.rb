@@ -29,8 +29,8 @@ class Jar
   def jar_modified_since?
     jar = jar_path
 
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true if uri.scheme == 'https'
+    if ::File.exist?(jar)
+      uri = URI.parse(@new_resource.url)
 
         headers = {
           'If-Modified-Since' => file_mtime.httpdate
