@@ -5,7 +5,7 @@ class Chef
   class Provider
     class LogstashConfig < Chef::Provider
 
-      include Helpers
+      include Helpers::Logstash
 
       attr_reader :plugin_class
 
