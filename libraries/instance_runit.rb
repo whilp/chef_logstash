@@ -5,9 +5,10 @@ class Runit
 
   include Helpers
 
-      def initialize(new_resource, run_context=nil)
-        super
-      end
+  def initialize(new_resource, run_context=nil)
+    @new_resource = new_resource
+    @run_context = run_context
+  end
 
       def create
         create_service_script
