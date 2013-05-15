@@ -8,6 +8,8 @@ class Chef
   class Provider
     class LogstashInstance < Chef::Provider
 
+      def initialize(new_resource, run_context=nil)
+        super
       end
     end
   end
