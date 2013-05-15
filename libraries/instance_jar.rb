@@ -7,13 +7,10 @@ class Jar
 
   include Helpers
 
-      def initialize(new_resource, run_context=nil)
-        super
-      end
-
-      def install
-        fetch_logstash_jar
-      end
+  def initialize(new_resource, run_context=nil)
+    @new_resource = new_resource
+    @run_context = run_context
+  end
 
       def uninstall
         remove_logstash_jar
