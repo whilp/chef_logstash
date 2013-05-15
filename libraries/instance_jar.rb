@@ -32,9 +32,7 @@ class Jar
     if ::File.exist?(jar)
       uri = URI.parse(@new_resource.url)
 
-        headers = {
-          'If-Modified-Since' => file_mtime.httpdate
-        }
+      file_mtime = ::Date.parse(::File.mtime(jar).to_s)
 
         response = http.get(uri.request_uri, headers)
 
