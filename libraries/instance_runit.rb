@@ -1,9 +1,7 @@
 
 require File.expand_path('../helpers', __FILE__)
 
-class Logstash
-  class Instance
-    class Runit < Chef::Provider::Logstash::Instance
+class Runit
 
       include Helpers
 
