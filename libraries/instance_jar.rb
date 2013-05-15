@@ -12,21 +12,22 @@ class Jar
     @run_context = run_context
   end
 
-      def uninstall
-        remove_logstash_jar
-      end
+  def install
+    fetch_logstash_jar
+  end
 
-      private
+  def uninstall
+    remove_logstash_jar
+  end
 
-      def jar_path
-        logstash_jar_with_path(new_resource.dst_dir, new_resource.version)
-      end
+  private
 
-      def jar_modified_since?
-        uri = URI.parse()
-        jar = jar_path
+  def jar_path
+    logstash_jar_with_path(@new_resource.dst_dir, @new_resource.version)
+  end
 
-        file_mtime = ::Date.parse(::File.mtime(jar).to_s)
+  def jar_modified_since?
+    jar = jar_path
 
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true if uri.scheme == 'https'
