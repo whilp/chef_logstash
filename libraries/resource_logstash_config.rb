@@ -6,23 +6,19 @@ class Chef
   class Resource
     class LogstashConfig < Chef::Resource
 
-        include Chef::Mixin::Securable
+      include Chef::Mixin::Securable
 
-        def initialize(name, run_context=nil)
-          super
-          @resource_name = :logstash_config
-          @provider = Chef::Provider::Logstash::Config
-          @action = :create
-          @allowed_actions = [:create, :destroy, :enable, :nothing]
+      def initialize(name, run_context=nil)
+        super
+        @resource_name = :logstash_config
+        @provider = Chef::Provider::LogstashConfig
+        @action = :create
+        @allowed_actions = [:create, :destroy, :enable, :nothing]
 
-          @plugin = nil
-          @plugin_type = nil
-          @plugin_config = nil
-        end
-
-        def instance(arg=nil)
-          set_or_return(:instance, arg, :kind_of => [String])
-        end
+        @plugin = nil
+        @plugin_type = nil
+        @plugin_config = nil
+      end
 
         def plugin(arg=nil)
           set_or_return(:plugin, arg, :kind_of => [String])
