@@ -3,9 +3,11 @@ require 'net/http'
 require 'uri'
 require File.expand_path('../helpers', __FILE__)
 
-class Jar
+class Logstash
+  class Instance
+    class Jar
 
-  include Helpers::Logstash
+      include Helpers::Logstash
 
   def initialize(new_resource, run_context=nil)
     @new_resource = new_resource
