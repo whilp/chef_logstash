@@ -28,14 +28,19 @@ class Logstash
         logstash_jar_with_path(@new_resource.dst_dir, @new_resource.version)
       end
 
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true if uri.scheme == 'https'
+      def jar_was_modified_since?
+        if ::File.exists?(jar_path)
+          uri = URI.parse(@new_resource.url)
+          file_mtime = ::Date.parse(::File.mtime(jar_path).to_s)
 
-      headers = {
-        'If-Modified-Since' => file_mtime.httpdate
-      }
+          http = Net::HTTP.new(uri.host, uri.port)
+          http.use_ssl = true if uri.scheme == 'https'
+          headers = { 'If-Modified-Since' => file_mtime.httpdate }
+          response = http.get(uri.request_uri, headers)
 
-      response = http.get(uri.request_uri, headers)
+          response == '304' ? false : true
+        end
+      end
 
       if response.code == '304'
         return false
