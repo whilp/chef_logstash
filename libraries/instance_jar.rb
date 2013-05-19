@@ -9,20 +9,10 @@ class Logstash
 
       include Helpers::Logstash
 
-  def initialize(new_resource, run_context=nil)
-    @new_resource = new_resource
-    @run_context = run_context
-  end
-
-  def install
-    fetch_logstash_jar
-  end
-
-  def uninstall
-    remove_logstash_jar
-  end
-
-  private
+      def initialize(new_resource, run_context=nil)
+        @new_resource = new_resource
+        @run_context = run_context
+      end
 
   def jar_path
     logstash_jar_with_path(@new_resource.dst_dir, @new_resource.version)
