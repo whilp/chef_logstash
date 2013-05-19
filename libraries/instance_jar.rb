@@ -18,13 +18,15 @@ class Logstash
         fetch_logstash_jar unless jar_was_modified_since?
       end
 
-  def jar_modified_since?
-    jar = jar_path
+      def uninstall
+        remove_logstash_jar
+      end
 
-    if ::File.exist?(jar)
-      uri = URI.parse(@new_resource.url)
+      private
 
-      file_mtime = ::Date.parse(::File.mtime(jar).to_s)
+      def jar_path
+        logstash_jar_with_path(@new_resource.dst_dir, @new_resource.version)
+      end
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true if uri.scheme == 'https'
