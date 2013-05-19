@@ -14,9 +14,9 @@ class Logstash
         @run_context = run_context
       end
 
-  def jar_path
-    logstash_jar_with_path(@new_resource.dst_dir, @new_resource.version)
-  end
+      def install
+        fetch_logstash_jar unless jar_was_modified_since?
+      end
 
   def jar_modified_since?
     jar = jar_path
