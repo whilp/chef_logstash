@@ -49,12 +49,12 @@ class Chef
       private
 
       def create_user
-        g = Chef::Resource::Group(new_resource.group, run_context)
+        g = Chef::Resource::Group.new(new_resource.group, run_context)
         g.run_action(:create)
       end
 
       def create_group
-        u = Chef::Resource::User(new_resource.user, run_context)
+        u = Chef::Resource::User.new(new_resource.user, run_context)
         u.gid new_resource.group
         u.run_action(:create)
       end
