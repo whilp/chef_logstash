@@ -42,10 +42,15 @@ class Logstash
         end
       end
 
-      if response.code == '304'
-        return false
-      else
-        return true
+      def fetch_logstash_jar
+        r = Chef::Resource::Remote_file.new("logstash_#{ @new_resource.version }", @run_context)
+        r.path     jar_path
+        r.checksum @new_resource.checksum
+        r.source   @new_resource.url
+        r.owner    'root'
+        r.group    'root'
+        r.mode     00644
+        r.run_action(:create)
       end
     end
 
