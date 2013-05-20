@@ -44,7 +44,7 @@ class Logstash
       end
 
       def fetch_logstash_jar
-        r = Chef::Resource::Remote_file.new("logstash_#{ @new_resource.version }", @run_context)
+        r = Chef::Resource::RemoteFile.new("logstash_#{ @new_resource.version }", @run_context)
         r.path     jar_path
         r.checksum @new_resource.checksum
         r.source   @new_resource.url
