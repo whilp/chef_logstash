@@ -10,6 +10,7 @@ class Logstash
       def initialize(new_resource, run_context=nil)
         @new_resource = new_resource
         @run_context = run_context
+        @run_context.include_recipe('runit')
       end
 
       def create
@@ -27,9 +28,6 @@ class Logstash
       private
 
       def create_service_script
-
-        @run_context.include_recipe('runit')
-
         jar_path = logstash_jar_with_path(@new_resource.dst_dir, @new_resource.version)
 
         r = Chef::Resource::RunitService.new(logstash_service(@new_resource.name), @run_context)
