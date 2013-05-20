@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 group :test do
   gem 'chef'
   gem 'minitest'
+  gem 'flog'
   gem 'rake'
   gem 'reek'
   gem 'tailor'
