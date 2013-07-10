@@ -44,6 +44,16 @@ namespace :test do
 
 end
 
+namespace :generate_resources do
+
+  task :get_logstash do
+  end
+
+  task :generate do
+  end
+
+end
+
 namespace :release do
 
   task :update_metadata do
