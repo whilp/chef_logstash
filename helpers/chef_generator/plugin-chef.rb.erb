@@ -1,20 +1,20 @@
-<%- 
+<%-
 
 require 'nokogiri'
 
 # Set variable to fase. Will be set to true if we have a path resource and require to create a directory
 got_path_resource = false
 
-def word_wrap(text, line_width = 70 ) 
+def word_wrap(text, line_width = 70 )
   return text if line_width <= 0
-  text.gsub(/\n/, ' ').gsub(/(.{1,#{line_width}})(\s+|$)/, "\\1\n").strip
+  text.gsub(/\n/, ' ').gsub(/(.{1,#{ line_width }})(\s+|$)/, "\\1\n").strip
 end
 
 def wrap_and_prepend(text, line_width=70)
   holder=''
   text1 = word_wrap(text, line_width)
   text2 = text1.split("\n")
-  text3 = text2.map{ |word| "#   #{word}" }
+  text3 = text2.map{ |word| "#   #{ word }" }
   text3.each do |line|
     line = line.strip
     holder+=line+"\n"
@@ -31,12 +31,12 @@ plugin_name = name
 
   sorted_attributes.each do | name, config |
     next if config[:deprecated]
-    if config[:validate].is_a?(Symbol) 
+    if config[:validate].is_a?(Symbol)
       valinput='Value type is '+config[:validate].to_s
     elsif config[:validate].nil?
-      puts "#{name} is nil"
+      puts "#{ name } is nil"
       valinput='Value type is String'
-    elsif config[:validate].is_a?(Array) 
+    elsif config[:validate].is_a?(Array)
       valinput='Value can be any of: '+config[:validate].map(&:inspect).join(", ")
     end
     if config.include?(:default)
@@ -77,10 +77,10 @@ class Chef
   sorted_2 = sorted_attributes.sort_by { |a,b| b[:validate].class == Symbol ? b[:validate] : :other  }
   sorted_2.each do |name, config|
   next if config[:deprecated]
-  if config[:validate].is_a?(Array) 
-    annotation = "#{config[:validate].inspect}"
-  else 
-    annotation = "#{config[:validate]}"
+  if config[:validate].is_a?(Array)
+    annotation = "#{ config[:validate].inspect }"
+  else
+    annotation = "#{ config[:validate] }"
   end
   next if name.is_a?(Regexp)
 if annotation == 'string' or annotation == 'password' or annotation == 'path' %>
