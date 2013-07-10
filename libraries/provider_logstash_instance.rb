@@ -22,20 +22,17 @@ class Chef
       def action_create
         instance(new_resource.install_type, 'install')
         instance(new_resource.service_type, 'create')
-
         new_resource.updated_by_last_action(true)
       end
 
       def action_destroy
         instance(new_resource.install_type, 'disable')
         instance(new_resource.service_type, 'uninstall')
-
         new_resource.updated_by_last_action(true)
       end
 
       def action_enable
         instance(new_resource.service_type, 'enable')
-
         new_resource.updated_by_last_action(true)
       end
 
@@ -60,7 +57,6 @@ class Chef
 
       def instance_sub_class(type)
         klass = "Logstash::Instance::#{ type.capitalize }"
-
         klass.split('::').reduce(Object) {|kls, t| kls.const_get(t) }
       end
 
