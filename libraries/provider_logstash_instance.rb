@@ -20,6 +20,7 @@ class Chef
       end
 
       def action_create
+        create_dst_dir
         instance(new_resource.install_type, 'install')
         instance(new_resource.service_type, 'create')
         new_resource.updated_by_last_action(true)
@@ -47,6 +48,16 @@ class Chef
         u = Chef::Resource::User.new(new_resource.user, run_context)
         u.gid new_resource.group
         u.run_action(:create)
+      end
+
+      def create_dst_dir
+        dst_dir = Chef::Resource::Directory.new(@new_resource.dst_dir, @run_context)
+        dst_dir.path      @new_resource.dst_dir
+        dst_dir.owner     'root'
+        dst_dir.group     'root'
+        dst_dir.mode      00755
+        dst_dir.recursive true
+        dst_dir.run_action(:create)
       end
 
       def instance(type, action)
