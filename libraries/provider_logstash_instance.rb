@@ -53,7 +53,8 @@ class Chef
       end
 
       def instance(type, action)
-        i = instance_sub_class(type).new
+        instance_class = instance_sub_class(type)
+        i = instance_class.new(new_resource, run_context)
         i.send(action)
       end
 
