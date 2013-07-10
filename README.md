@@ -95,6 +95,7 @@ Usage example:
 
 [![Build Status](https://travis-ci.org/miah/chef_logstash.png)](https://travis-ci.org/miah/chef_logstash)
 
+[![Code Climate](https://codeclimate.com/github/miah/chef_logstash.png)](https://codeclimate.com/github/miah/chef_logstash)
 ## Code Style
 
 This code follows the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) and all contributions should as well.
