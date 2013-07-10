@@ -10,7 +10,9 @@ class Chef
       attr_reader :plugin_class
 
       def initialize(new_resource, run_context=nil)
-        @plugin_class = lookup_plugin_class
+        @new_resource = new_resource
+        @run_context = run_context
+        @plugin_class = lookup_plugin_class # I think this is fubar
         super
       end
 
@@ -23,12 +25,12 @@ class Chef
 
       def action_create
         create_config_file
-        new_resource.updated_by_last_action(true)
+        @new_resource.updated_by_last_action(true)
       end
 
       def action_destroy
         destroy_config_file
-        new_resource.updated_by_last_action(true)
+        @new_resource.updated_by_last_action(true)
       end
 
       def action_enable
@@ -43,7 +45,7 @@ class Chef
       end
 
       def plugin_object
-        lookup_resource(new_resource.plugin_type, @plugin_name) || @plugin_class.new(name, run_context)
+        lookup_resource(@new_resource.plugin_type, @plugin_name) || @plugin_class.new(name, @run_context)
       end
 
       # Instantiate plugin subclass
@@ -61,7 +63,7 @@ class Chef
       end
 
       def create_config_file
-        f = Chef::Resource::File.new(new_resource.conf_dir, run_context)
+        f = Chef::Resource::File.new(@new_resource.conf_dir, @run_context)
         f.owner 'root'
         f.group 'root'
         f.mode 00755
@@ -70,8 +72,8 @@ class Chef
       end
 
       def destroy_config_file
-        ls_dir = logstash_conf_dir(new_resource.conf_dir, new_resource.name)
-        directory logstash_config_file(ls_dir, new_resource.name) do
+        ls_dir = logstash_conf_dir(@new_resource.conf_dir, @new_resource.name)
+        directory logstash_config_file(ls_dir, @new_resource.name) do
           action :delete
         end
       end

@@ -9,6 +9,8 @@ class Chef
     class LogstashInstance < Chef::Provider
 
       def initialize(new_resource, run_context=nil)
+        @new_resource = new_resource
+        @run_context = run_context
         super
       end
 
@@ -21,32 +23,32 @@ class Chef
 
       def action_create
         create_dst_dir
-        instance(new_resource.install_type, 'install')
-        instance(new_resource.service_type, 'create')
-        new_resource.updated_by_last_action(true)
+        instance(@new_resource.install_type, 'install')
+        instance(@new_resource.service_type, 'create')
+        @new_resource.updated_by_last_action(true)
       end
 
       def action_destroy
-        instance(new_resource.install_type, 'disable')
-        instance(new_resource.service_type, 'uninstall')
-        new_resource.updated_by_last_action(true)
+        instance(@new_resource.install_type, 'disable')
+        instance(@new_resource.service_type, 'uninstall')
+        @new_resource.updated_by_last_action(true)
       end
 
       def action_enable
-        instance(new_resource.service_type, 'enable')
-        new_resource.updated_by_last_action(true)
+        instance(@new_resource.service_type, 'enable')
+        @new_resource.updated_by_last_action(true)
       end
 
       private
 
       def create_user
-        g = Chef::Resource::Group.new(new_resource.group, run_context)
+        g = Chef::Resource::Group.new(@new_resource.group, @run_context)
         g.run_action(:create)
       end
 
       def create_group
-        u = Chef::Resource::User.new(new_resource.user, run_context)
-        u.gid new_resource.group
+        u = Chef::Resource::User.new(@new_resource.user, @run_context)
+        u.gid @new_resource.group
         u.run_action(:create)
       end
 
@@ -62,7 +64,7 @@ class Chef
 
       def instance(type, action)
         instance_class = instance_sub_class(type)
-        i = instance_class.new(new_resource, run_context)
+        i = instance_class.new(@new_resource, @run_context)
         i.send(action)
       end
 
