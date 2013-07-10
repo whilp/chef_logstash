@@ -1,6 +1,9 @@
 require 'chef/provider'
 require File.expand_path('../helpers', __FILE__)
 
+project_root = File.dirname(File.absolute_path(__FILE__))
+Dir.glob(project_root + '{input,filter,output}*.rb') {|file| require file}
+
 class Chef
   class Provider
     class LogstashConfig < Chef::Provider
