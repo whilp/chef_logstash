@@ -1,16 +1,16 @@
-require "rubygems"
-require "erb"
-require "optparse"
-require "bluecloth" # for markdown parsing
+require 'rubygems'
+require 'erb'
+require 'optparse'
+require 'bluecloth' # for markdown parsing
 
 $: << Dir.pwd
-$: << File.join(File.dirname(__FILE__), "..", "lib")
+$: << File.join(File.dirname(__FILE__), '..', 'lib')
 
-require "logstash/config/mixin"
-require "logstash/inputs/base"
-require "logstash/filters/base"
-require "logstash/outputs/base"
-require "logstash/version"
+require 'logstash/config/mixin'
+require 'logstash/inputs/base'
+require 'logstash/filters/base'
+require 'logstash/outputs/base'
+require 'logstash/version'
 
 class LogStashConfigDocGenerator
   COMMENT_RE = /^ *#(?: (.*)| *$)/
@@ -30,7 +30,7 @@ class LogStashConfigDocGenerator
 
   def parse(string)
     clear_comments
-    buffer = ""
+    buffer = ''
     string.split(/\r\n|\n/).each do |line|
       # Join long lines
       if line =~ COMMENT_RE
@@ -38,13 +38,13 @@ class LogStashConfigDocGenerator
       else
         # Join extended lines
         if line =~ /(, *$)|(\\$)|(\[ *$)/
-          buffer += line.gsub(/\\$/, "")
+          buffer += line.gsub(/\\$/, '')
           next
         end
       end
 
       line = buffer + line
-      buffer = ""
+      buffer = ''
 
       @rules.each do |re, action|
         m = re.match(line)
@@ -52,21 +52,21 @@ class LogStashConfigDocGenerator
           action.call(m)
         end
       end # RULES.each
-    end # string.split("\n").each
+    end # string.split('\n').each
   end # def parse
 
   def set_class_description
-    @class_description = @comments.join("\n")
+    @class_description = @comments.join('\n')
     clear_comments
   end # def set_class_description
- 
+
   def add_comment(comment)
     @comments << comment
   end # def add_comment
 
   def add_config(code)
     # I just care about the 'config :name' part
-    code = code.sub(/,.*/, "")
+    code = code.sub(/,.*/, '')
 
     # call the code, which calls 'config' in this class.
     # This will let us align comments with config options.
@@ -76,7 +76,7 @@ class LogStashConfigDocGenerator
     # are gone from logstash.
     name = name.to_s unless name.is_a?(Regexp)
 
-    description = BlueCloth.new(@comments.join("\n")).to_html
+    description = BlueCloth.new(@comments.join('\n')).to_html
     @attributes[name][:description] = description
     clear_comments
   end # def add_config
@@ -85,7 +85,7 @@ class LogStashConfigDocGenerator
     # call the code, which calls 'config' in this class.
     # This will let us align comments with config options.
     # p :code => code
-    fixed_code = code.gsub(/ do .*/, "")
+    fixed_code = code.gsub(/ do .*/, '')
     # p :fixedcode => fixed_code
     name, description = eval(fixed_code)
     @flags[name] = description
@@ -129,8 +129,8 @@ class LogStashConfigDocGenerator
   end # def clear_comments
 
   def generate(file, settings)
-    @class_description = ""
-    @plugin_status = ""
+    @class_description = ''
+    @plugin_status = ''
     @comments = []
     @attributes = Hash.new { |h,k| h[k] = {} }
     @flags = {}
@@ -143,36 +143,36 @@ class LogStashConfigDocGenerator
     load file
 
     # parse base first
-    parse(File.new(File.join(File.dirname(file), "base.rb"), "r").read)
+    parse(File.new(File.join(File.dirname(file), 'base.rb'), 'r').read)
 
     # Now parse the real library
     code = File.new(file).read
 
     # inputs either inherit from Base or Threadable.
     if code =~ /\< LogStash::Inputs::Threadable/
-      parse(File.new(File.join(File.dirname(file), "threadable.rb"), "r").read)
+      parse(File.new(File.join(File.dirname(file), 'threadable.rb'), 'r').read)
     end
 
     parse(code)
 
-    puts "Generating Chef code for #{file}"
+    puts "Generating Chef code for #{ file }"
 
     if @name.nil?
-      $stderr.puts "Missing 'config_name' setting in #{file}?"
+      $stderr.puts "Missing 'config_name' setting in #{ file }?"
       return nil
     end
 
     klass = LogStash::Config::Registry.registry[@name]
     if klass.ancestors.include?(LogStash::Inputs::Base)
-      section = "input"
+      section = 'input'
     elsif klass.ancestors.include?(LogStash::Filters::Base)
-      section = "filter"
+      section = 'filter'
     elsif klass.ancestors.include?(LogStash::Outputs::Base)
-      section = "output"
+      section = 'output'
     end
 
-    template_file = File.join(File.dirname(__FILE__), "plugin-chef.rb.erb")
-    template = ERB.new(File.new(template_file).read, nil, "-")
+    template_file = File.join(File.dirname(__FILE__), 'plugin-chef.rb.erb')
+    template = ERB.new(File.new(template_file).read, nil, '-')
 
     # descriptions are assumed to be markdown
     description = BlueCloth.new(@class_description).to_html
@@ -186,16 +186,16 @@ class LogStashConfigDocGenerator
 
     if settings[:output]
       dir = File.join(settings[:output], section)
-      path = File.join(dir, "#{name}.rb")
+      path = File.join(dir, "#{ name }.rb")
       Dir.mkdir(settings[:output]) if !File.directory?(settings[:output])
       Dir.mkdir(dir) if !File.directory?(dir)
-      File.open(path, "w") do |out|
+      File.open(path, 'w') do |out|
         html = template.result(binding)
-        html.gsub!("%VERSION%", LOGSTASH_VERSION)
-        html.gsub!("%PLUGIN%", @name)
+        html.gsub!('%VERSION%', LOGSTASH_VERSION)
+        html.gsub!('%PLUGIN%', @name)
         out.puts(html)
       end
-    else 
+    else
       puts template.result(binding)
     end
   end # def generate
@@ -205,10 +205,10 @@ end # class LogStashConfigDocGenerator
 if __FILE__ == $0
   opts = OptionParser.new
   settings = {}
-  opts.on("-o DIR", "--output DIR", 
-          "Directory to output to; optional. If not specified,"\
-          "we write to stdout.") do |val|
-    settings[:output] = "#{val}/libraries"
+  opts.on('-o DIR', '--output DIR',
+          'Directory to output to; optional. If not specified,'\
+          'we write to stdout.') do |val|
+    settings[:output] = "#{ val }/libraries"
   end
 
   args = opts.parse(ARGV)
