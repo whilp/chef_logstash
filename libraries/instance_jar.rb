@@ -16,6 +16,7 @@ class Logstash
       end
 
       def install
+        create_dst_dir
         fetch_logstash_jar unless jar_was_modified_since?
       end
 
@@ -27,6 +28,16 @@ class Logstash
 
       def jar_path
         logstash_jar_with_path(@new_resource.dst_dir, @new_resource.version)
+      end
+
+      def create_dst_dir
+        dst_dir = Chef::Resource::Directory.new(@new_resource.dst_dir, @run_context)
+        dst_dir.path      @new_resource.dst_dir
+        dst_dir.owner     'root'
+        dst_dir.group     'root'
+        dst_dir.mode      00755
+        dst_dir.recursive true
+        dst_dir.run_action(:create)
       end
 
       def jar_was_modified_since?
