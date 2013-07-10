@@ -11,3 +11,7 @@ group :test do
   gem 'kitchen-vagrant'
   gem 'vagrant-berkshelf'
 end
+
+group :generate_resources do
+  gem 'bluecloth'
+end
