@@ -1,23 +1,23 @@
 #!/bin/bash
 #
-# Logstash init script for <%= @name %>
+# Logstash init script for <%= @name -%>
 # The chef_logstash cookbook manages me.
 
 case "$1" in
 
   start)
-  echo "Starting <%= @name %>: "
-  su - <%= @user %> -c "java -jar <%= @jar_path %> <%= @service_options %> agent -f <%= @conf_dir %>/<%= @name%>.conf"
-  echo "OK"
+    echo "Starting <%= @name -%>: "
+    su - <%= @user -%> -c "java -jar <%= @jar_path -%> <%= @service_options -%> agent -f <%= @conf_dir -%>/<%= @name -%>.conf"
+    echo "OK"
   ;;
 
   stop)
-  echo "Stopping <%= @name %>"
-  echo "OK"
+    echo "Stopping <%= @name %>"
+    echo "OK"
   ;;
 
   status)
-  echo "Status <%= @name %>"
+    echo "Status <%= @name %>"
   ;;
 
   echo "Usage $0 start|stop|status"
