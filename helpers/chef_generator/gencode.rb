@@ -9,7 +9,7 @@ require 'optparse'
 require 'bluecloth' # for markdown parsing
 
 $: << Dir.pwd
-$: << File.join(File.dirname(__FILE__), '..', 'lib')
+$: << File.join(File.dirname(__FILE__), 'logstash/lib/')
 
 require 'logstash/config/mixin'
 require 'logstash/inputs/base'
