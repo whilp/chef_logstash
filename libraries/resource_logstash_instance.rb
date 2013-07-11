@@ -63,7 +63,7 @@ class Chef
       end
 
       def service_options(arg=nil)
-        set_or_return(:install_options, arg, :kind_of => Hash)
+        set_or_return(:service_options, arg, :kind_of => Hash)
       end
 
       def service_type(arg=nil)
