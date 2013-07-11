@@ -14,4 +14,5 @@ end
 
 group :generate_resources do
   gem 'bluecloth'
+  gem 'cabin'
 end
