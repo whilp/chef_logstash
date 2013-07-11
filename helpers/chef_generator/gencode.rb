@@ -8,8 +8,8 @@ require 'erb'
 require 'optparse'
 require 'bluecloth' # for markdown parsing
 
-$: << Dir.pwd
-$: << File.join(File.dirname(__FILE__), 'logstash/lib/')
+logstash_dir = File.expand_path('logstash/lib/', File.dirname(__FILE__))
+$LOAD_PATH.unshift(logstash_dir) unless $LOAD_PATH.include?(logstash_dir)
 
 require 'logstash/config/mixin'
 require 'logstash/inputs/base'
