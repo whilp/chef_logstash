@@ -43,7 +43,7 @@ class Logstash
         r.cookbook 'logstash'
         r.source   'logstash-init'
         r.path     ::File.join('', '/etc/init.d', ls_svc)
-        r.options({
+        r.variables({
             :conf_dir        => @new_resource.conf_dir,
             :jar_path        => jar_path,
             :name            => @new_resource.name,
