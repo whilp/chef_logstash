@@ -41,7 +41,7 @@ class Logstash
       def create_service_script
         r = Chef::Resource::Template.new(logstash_service(@new_resource.name), @run_context)
         r.cookbook 'logstash'
-        r.source   'logstash-init'
+        r.source   'logstash-init.erb'
         r.path     ::File.join('', '/etc/init.d', ls_svc)
         r.variables({
             :conf_dir        => @new_resource.conf_dir,
