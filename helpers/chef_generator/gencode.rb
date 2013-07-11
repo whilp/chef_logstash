@@ -1,3 +1,8 @@
+#! /usr/bin/env ruby
+
+#
+# Generates Chef compatible resources from logstash plugin sources.
+#
 require 'rubygems'
 require 'erb'
 require 'optparse'
