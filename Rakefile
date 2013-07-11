@@ -53,7 +53,7 @@ namespace :generate_resources do
     dst_dir = './helpers/chef_generator/logstash'
     tgz     = './helpers/chef_generator/logstash.tar.gz'
     sh "mkdir #{ dst_dir }"
-    sh "curl -L -o #{ tgz } #{ url }"
+    sh "curl -s -L -o #{ tgz } #{ url }"
     sh "tar xf #{ tgz } --strip-components 1 -C #{ dst_dir }"
   end
 
