@@ -41,6 +41,14 @@ class Chef
 
       private
 
+      def conf_dir
+        @conf_dir ||= lookup_conf_dir
+      end
+
+      def lookup_conf_dir
+        lookup_logstash_confdir(@new_resource.instance, @run_context)
+      end
+
       def lookup_plugin_class
         klass = "Chef::Resource::LogstashConfig#{ @plugin_type }#{ @plugin }"
 
@@ -48,7 +56,7 @@ class Chef
       end
 
       def plugin_object
-        lookup_resource(@new_resource.plugin_type, @plugin_name) || @plugin_class.new(name, @run_context)
+        lookup_resource(@new_resource.plugin_type, @plugin_name, @run_context) || @plugin_class.new(name, @run_context)
       end
 
       # Instantiate plugin subclass
@@ -66,7 +74,7 @@ class Chef
       end
 
       def create_config_file
-        f = Chef::Resource::File.new(@new_resource.conf_dir, @run_context)
+        f = Chef::Resource::File.new(conf_dir, @run_context)
         f.owner 'root'
         f.group 'root'
         f.mode 00755
@@ -75,13 +83,14 @@ class Chef
       end
 
       def destroy_config_file
-        ls_dir = logstash_conf_dir(@new_resource.conf_dir, @new_resource.name)
+        ls_dir = logstash_conf_dir(conf_dir, @new_resource.name)
         directory logstash_config_file(ls_dir, @new_resource.name) do
           action :delete
         end
       end
 
       def render_config_file
+        'render_config_file contents should be here.'
       end
 
     end
