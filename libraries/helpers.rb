@@ -53,8 +53,8 @@ module Helpers
       end
     end
 
-    def lookup_logstash_confdir(name)
-      l = lookup_resource('LogstashInstance', name)
+    def lookup_logstash_confdir(name, run_context)
+      l = lookup_resource(:logstash_instance, name, run_context)
       l.conf_dir
     end
 
