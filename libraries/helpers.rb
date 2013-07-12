@@ -43,11 +43,13 @@ module Helpers
     # @param name [String] The unique name of that resource.
     # @return [Resource] Hopefully the resource object you were looking for.
     #
-    def lookup_resource(type, name)
+    def lookup_resource(type, name, run_context)
       begin
-        self.run_context.resource_collection.find(type, name)
+        run_context.resource_collection.find("#{ type }[#{ name }]")
+      rescue ArgumentError => e
+        puts "You provided invalid arugments to resource_collection.find: #{ e }"
       rescue RuntimeError => e
-        puts "more error fu: #{ e }"
+        puts "The resources you searched for were not found: #{ e }"
       end
     end
 
