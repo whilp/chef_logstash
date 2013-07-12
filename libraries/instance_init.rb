@@ -36,6 +36,10 @@ class Logstash
         logstash_conf_dir(@new_resource.conf_dir, @new_resource.name)
       end
 
+      def conf_file
+        logstash_config_file(@new_resource.conf_dir, @new_resource.name)
+      end
+
       private
 
       def create_service_script
@@ -44,7 +48,7 @@ class Logstash
         r.source   'logstash-init.erb'
         r.path     ::File.join('', '/etc/init.d', ls_svc)
         r.variables({
-            :conf_dir        => @new_resource.conf_dir,
+            :conf_file       => conf_file,
             :jar_path        => jar_path,
             :name            => @new_resource.name,
             :service_options => @new_resource.service_options,
