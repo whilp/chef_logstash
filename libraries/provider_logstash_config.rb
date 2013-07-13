@@ -45,6 +45,14 @@ class Chef
         @conf_dir ||= lookup_conf_dir
       end
 
+      def conf_file
+        @conf_file ||= lookup_config_file
+      end
+
+      def lookup_config_file
+        ::File.join('', conf_dir, "#{ @new_resource.name }.conf")
+      end
+
       def lookup_conf_dir
         lookup_logstash_confdir(@new_resource.instance, @run_context)
       end
@@ -74,7 +82,7 @@ class Chef
       end
 
       def create_config_file
-        f = Chef::Resource::File.new(conf_dir, @run_context)
+        f = Chef::Resource::File.new(conf_file, @run_context)
         f.owner 'root'
         f.group 'root'
         f.mode 00755
