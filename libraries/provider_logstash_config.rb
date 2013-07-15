@@ -60,6 +60,8 @@ class Chef
         klass.split('::').reduce(Object) {|kls, t| kls.const_get(t) }
       end
 
+      # I don't think we need to lookup_resource here. We probably want use a
+      # instance variable or do @plugin_class.new
       def plugin_object
         lookup_resource(@new_resource.plugin_type, @plugin_name, @run_context) || @plugin_class.new(name, @run_context)
       end
