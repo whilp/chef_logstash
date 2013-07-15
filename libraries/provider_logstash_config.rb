@@ -81,7 +81,7 @@ class Chef
             end
           end
         rescue RuntimeError => e
-          puts "some bad shit happened: #{ e }"
+          puts "There was an issue: #{ e }"
         end
       end
 
