@@ -66,7 +66,12 @@ class Chef
         lookup_resource(@new_resource.plugin_type, @plugin_name, @run_context) || @plugin_class.new(name, @run_context)
       end
 
+      def render_conf_file
+        'render_conf_file contents should be here.'
+      end
+
       # Instantiate plugin subclass
+      # @param arg
       def configure_plugin(arg)
         begin
           if arg.is_a?(Enumerable)
