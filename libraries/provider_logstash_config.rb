@@ -85,24 +85,44 @@ class Chef
         end
       end
 
-      def create_config_file
-        f = Chef::Resource::File.new(conf_file, @run_context)
-        f.owner 'root'
-        f.group 'root'
-        f.mode 00755
-        f.content render_config_file
-        f.run_action(:create)
+      def create_conf_dir
+        dir = Chef::Resource::Directory.new(conf_dir, @run_context)
+        dir.owner 'root'
+        dir.group 'root'
+        dir.mode 00755
+        dir.run_action(:create)
       end
 
-      def destroy_config_file
-        ls_dir = logstash_conf_dir(conf_dir, @new_resource.name)
-        directory logstash_config_file(ls_dir, @new_resource.name) do
-          action :delete
+      def create_conf_file
+        file = Chef::Resource::File.new(conf_file, @run_context)
+        file.owner 'root'
+        file.group 'root'
+        file.mode 00644
+        file.content render_conf_file
+        file.run_action(:create)
+      end
+
+      def destroy_conf_file
+        file = Chef::Resource::File.new(conf_file, @run_context)
+        file.run_action(:destroy)
+      end
+
+      def destroy_conf_dir
+        dir = Chef::Resource::Directory.new(conf_dir, @run_context)
+        dir.run_action(:delete)
+      end
+
+      # FIXME
+      # Looks for config files in the config directory that are not owned
+      # by any logstash_config resources.
+      # @param name type [String] The unique name of that resource.
+      def logstash_clean_configs(name)
+        i = logstash_has_configs?(conf_dir)
+        i.each do |config|
+          unless lookup_resource(:logstash_config, i)
+            logstash_delete_old_config(::File.join('', conf_dir, i))
+          end
         end
-      end
-
-      def render_config_file
-        'render_config_file contents should be here.'
       end
 
     end
