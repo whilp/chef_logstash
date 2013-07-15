@@ -27,12 +27,14 @@ class Chef
       end
 
       def action_create
-        create_config_file
+        create_conf_dir
+        create_conf_file
         @new_resource.updated_by_last_action(true)
       end
 
       def action_destroy
-        destroy_config_file
+        destroy_conf_file
+        destroy_conf_dir
         @new_resource.updated_by_last_action(true)
       end
 
