@@ -27,14 +27,14 @@ class Chef
         set_or_return(:conf_dir,
                       arg,
                       :kind_of => String,
-                      :default => '/etc/logstash')
+                      :default => '/opt/logstash/instance/conf')
       end
 
       def dst_dir(arg=nil)
         set_or_return(:dst_dir,
                       arg,
                       :kind_of => String,
-                      :default => '/opt/logstash')
+                      :default => '/opt/logstash/instance')
       end
 
       def version(arg=nil)
