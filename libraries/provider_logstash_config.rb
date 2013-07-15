@@ -44,11 +44,11 @@ class Chef
       private
 
       def conf_dir
-        @conf_dir ||= lookup_conf_dir
+        @conf_dir ||= instance.conf_dir
       end
 
       def conf_file
-        @conf_file ||= lookup_config_file
+        @conf_file ||= logstash_config_file(conf_dir, @new_resource.instance)
       end
 
       def lookup_config_file
