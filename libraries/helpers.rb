@@ -15,6 +15,10 @@ module Helpers
       ::File.join('', dir, "#{ name }.conf")
     end
 
+    # FIXME. ? methods should return boolean.
+    # FIXME. Should have another method to provide the Array.
+    # @param dir [String] The logstash configuration directory.
+    # @return [Array] configuration files in the directory.
     def logstash_has_configs?(dir)
       ::Dir.glob(::File.join('', dir, '*.conf'))
     end
