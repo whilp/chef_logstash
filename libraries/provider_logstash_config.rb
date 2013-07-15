@@ -57,7 +57,6 @@ class Chef
 
       def lookup_plugin_class
         klass = "Chef::Resource::LogstashConfig#{ @plugin_type }#{ @plugin }"
-
         klass.split('::').reduce(Object) {|kls, t| kls.const_get(t) }
       end
 
