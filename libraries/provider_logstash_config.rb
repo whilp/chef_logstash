@@ -51,12 +51,8 @@ class Chef
         @conf_file ||= logstash_config_file(conf_dir, @new_resource.instance)
       end
 
-      def lookup_config_file
-        ::File.join('', conf_dir, "#{ @new_resource.name }.conf")
-      end
-
-      def lookup_conf_dir
-        lookup_logstash_confdir(@new_resource.instance, @run_context)
+      def instance
+        @instance ||= lookup_instance(@new_resource.name, @run_context)
       end
 
       def lookup_plugin_class
