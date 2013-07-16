@@ -137,16 +137,16 @@ class Logstash
 
     private
 
-    def cfg_string(string)
+    def cfg_string(key, value)
+      "#{ key } => \"#{ value }\""
     end
 
-    def cfg_hash_or_array(hash_or_array)
+    def cfg_hash_or_array(key, value)
+      "#{ key } => [#{ value.to_a.flatten }]"
     end
 
-    def cfg_boolean(boolean)
-    end
-
-    def cfg_number(number)
+    def cfg_number_or_boolean(key, value)
+      "#{ key } => #{ value }"
     end
 
   end
