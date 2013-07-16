@@ -52,7 +52,7 @@ class Chef
       end
 
       def instance
-        @instance ||= lookup_instance(@new_resource.name, @run_context)
+        @instance ||= lookup_instance(@new_resource.instance, @run_context)
       end
 
       def lookup_plugin_class
