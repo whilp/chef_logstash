@@ -66,7 +66,7 @@ class Chef
         lookup_resource(@new_resource.plugin_type, @plugin_name, @run_context) || @plugin_class.new(name, @run_context)
       end
 
-      def render_conf_file(options)
+      def render_conf_file(options=true)
         'render_conf_file contents should be here.'
       end
 
