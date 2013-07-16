@@ -126,3 +126,28 @@ class Chef
     end
   end
 end
+
+class Logstash
+  class ConfigGenerate
+    def initalize(*args)
+    end
+
+    def render
+    end
+
+    private
+
+    def cfg_string(string)
+    end
+
+    def cfg_hash_or_array(hash_or_array)
+    end
+
+    def cfg_boolean(boolean)
+    end
+
+    def cfg_number(number)
+    end
+
+  end
+end
