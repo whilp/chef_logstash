@@ -74,11 +74,9 @@ class Chef
       # @param arg
       def configure_plugin(arg)
         begin
-          if arg.is_a?(Enumerable)
-            # Iterate over the hash of resource arguments.
-            arg.each do |k, v|
-              plugin_object.send(k, v)
-            end
+          # Iterate over the hash of resource arguments.
+          arg.each do |k, v|
+            plugin_object.send(k, v)
           end
         rescue RuntimeError => e
           puts "There was an issue: #{ e }"
