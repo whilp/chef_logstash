@@ -10,12 +10,15 @@ class Chef
 
       include Helpers::Logstash
 
-      attr_reader :plugin_class
-
       def initialize(new_resource, run_context=nil)
         @new_resource = new_resource
         @run_context = run_context
-        @plugin_class = lookup_plugin_class # I think this is fubar
+
+        @conf_dir = conf_dir
+        @conf_file = conf_file
+        @instance = instance
+        @plugin_class = plugin_class
+        @plugin_object = plugin_object
         super
       end
 
