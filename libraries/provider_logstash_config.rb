@@ -53,7 +53,7 @@ class Chef
       end
 
       def conf_file
-        @conf_file ||= logstash_config_file(conf_dir, @new_resource.instance)
+        @conf_file ||= logstash_config_file(conf_dir, @new_resource.name)
       end
 
       def instance
