@@ -31,6 +31,7 @@ class Chef
 
       def action_create
         create_conf_dir
+        configure_plugin(@new_resource.plugin_config)
         create_conf_file
         @new_resource.updated_by_last_action(true)
       end
