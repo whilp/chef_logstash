@@ -81,14 +81,15 @@ class Chef
         klass.split('::').reduce(Object) {|kls, t| kls.const_get(t) }
       end
 
-      # I don't think we need to lookup_resource here. We probably want use a
-      # instance variable or do @plugin_class.new
-      def plugin_object
-        lookup_resource(@new_resource.plugin_type, @plugin_name, @run_context) || @plugin_class.new(name, @run_context)
+      def render_conf_file(plugin_config)
+        file = Logstash::ConfigGenerate.new
+        file.plugin_config(plugin_config)
+        file.render
+        file.config
       end
 
-      def render_conf_file(options=true)
-        'render_conf_file contents should be here.'
+      def rendered_conf
+        @rendered_conf ||= render_conf_file(@new_resource.plugin_config)
       end
 
       # Instantiate plugin subclass
@@ -117,7 +118,7 @@ class Chef
         file.owner 'root'
         file.group 'root'
         file.mode 00644
-        file.content render_conf_file
+        file.content rendered_conf
         file.run_action(:create)
       end
 
