@@ -43,6 +43,7 @@ class Chef
       end
 
       def action_enable
+        instance.run_action(:enable)
       end
 
       private
