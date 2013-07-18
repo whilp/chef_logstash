@@ -170,6 +170,20 @@ class Logstash
 
     private
 
+    def cfg_type(option, setting)
+      type = setting.class.to_s
+      case type
+      when 'String'
+        cfg_string(option, setting)
+      when 'Array' || 'Hash'
+        cfg_array(option, setting)
+      when 'Fixnum' || 'TrueClass' || 'FalseClass'
+        cfg_number(option, setting)
+      else
+        Chef::Log.info("cfg_type was unable to lookup sc: #{ type } o: #{ option } s: #{ setting }")
+      end
+    end
+
     def cfg_string(key, value)
       "#{ key } => \"#{ value }\""
     end
