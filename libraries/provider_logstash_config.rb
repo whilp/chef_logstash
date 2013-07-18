@@ -151,7 +151,15 @@ end
 
 class Logstash
   class ConfigGenerate
-    def initalize(*args)
+
+    attr :config
+
+    def initialize
+      @config = ''
+    end
+
+    def plugin_config(config={})
+      @plugin_config ||= config
     end
 
     def render
