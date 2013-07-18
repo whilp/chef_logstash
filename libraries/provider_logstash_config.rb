@@ -163,6 +163,9 @@ class Logstash
     end
 
     def render
+      plugin_config.each do |option, setting|
+        cfg_type(option, setting)
+      end
     end
 
     private
