@@ -60,6 +60,22 @@ class Chef
         @instance ||= lookup_instance(@new_resource.instance, @run_context)
       end
 
+      def plugin_object
+        @plugin_object ||= plugin_class.new(@new_resource.name, @run_context)
+      end
+
+      def plugin_class
+        @plugin_class ||= lookup_plugin_class
+      end
+
+      def plugin_type
+        @plugin_type ||= @new_resource.plugin_type.capitalize
+      end
+
+      def plugin
+        @plugin ||= @new_resource.plugin.capitalize
+      end
+
       def lookup_plugin_class
         klass = "Chef::Resource::LogstashConfig#{ @plugin_type }#{ @plugin }"
         klass.split('::').reduce(Object) {|kls, t| kls.const_get(t) }
