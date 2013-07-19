@@ -87,6 +87,7 @@ class Chef
         file = Logstash::ConfigGenerate.new
         file.plugin_config(plugin_config)
         file.plugin_type = plugin_type
+        file.plugin = plugin
         file.render
         file.config
       end
@@ -155,7 +156,7 @@ end
 class Logstash
   class ConfigGenerate
 
-    attr_accessor :config, :plugin_type
+    attr_accessor :config, :plugin_type, :plugin
 
     def initialize
       @config = ''
@@ -166,11 +167,13 @@ class Logstash
     end
 
     def render
-      cfg_start
+      @config << cfg_start
+      @config << cfg_name
       plugin_config.each do |option, setting|
-        cfg_type(option, setting)
+        @config << cfg_type(option, setting)
       end
-      cfg_end
+      @config << cfg_end
+      @config << cfg_end
     end
 
     private
@@ -201,8 +204,12 @@ class Logstash
       "#{ key } => #{ value }\n"
     end
 
+    def cfg_name
+      "#{ plugin } {\n"
+    end
+
     def cfg_start
-      "#{ plugin_type } {"
+      "#{ plugin_type } {\n"
     end
 
     def cfg_end
