@@ -47,6 +47,9 @@ class Logstash
         r.cookbook 'logstash'
         r.source   'logstash-init.erb'
         r.path     ::File.join('', '/etc/init.d', ls_svc)
+        r.mode     00755
+        r.owner    'root'
+        r.group    'root'
         r.variables({
             :conf_file       => conf_file,
             :jar_path        => jar_path,
