@@ -64,7 +64,8 @@ class Logstash
         if ::File.directory?(conf_dir)
           if logstash_has_configs?(conf_dir)
             s = Chef::Resource::Service.new(ls_svc, @run_context)
-            s.run_action(:enable, :start)
+            s.run_action(:enable)
+            s.run_action(:start)
           else
             Chef::Log.info("#{ conf_dir } has no configs. Not enabling #{ ls_svc }.")
           end
@@ -75,7 +76,8 @@ class Logstash
 
       def disable_service
         s = Chef::Resource::Service.new(ls_svc, @run_context)
-        s.run_action([:disable, :stop])
+        s.run_action(:disable)
+        s.run_action(:stop)
       end
 
     end
