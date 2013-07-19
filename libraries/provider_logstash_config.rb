@@ -166,9 +166,11 @@ class Logstash
     end
 
     def render
+      cfg_start
       plugin_config.each do |option, setting|
         cfg_type(option, setting)
       end
+      cfg_end
     end
 
     private
@@ -199,5 +201,12 @@ class Logstash
       "#{ key } => #{ value }\n"
     end
 
+    def cfg_start
+      "#{ plugin_type } {"
+    end
+
+    def cfg_end
+      "}"
+    end
   end
 end
