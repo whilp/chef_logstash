@@ -86,6 +86,7 @@ class Chef
       def render_conf_file(plugin_config)
         file = Logstash::ConfigGenerate.new
         file.plugin_config(plugin_config)
+        file.plugin_type = plugin_type
         file.render
         file.config
       end
@@ -154,7 +155,7 @@ end
 class Logstash
   class ConfigGenerate
 
-    attr :config
+    attr_accessor :config, :plugin_type
 
     def initialize
       @config = ''
