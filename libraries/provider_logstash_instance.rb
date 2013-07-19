@@ -23,6 +23,8 @@ class Chef
 
       def action_create
         create_dst_dir
+        create_group
+        create_user
         instance(@new_resource.install_type, 'install')
         instance(@new_resource.service_type, 'create')
         @new_resource.updated_by_last_action(true)
@@ -41,13 +43,15 @@ class Chef
 
       private
 
-      def create_user
+      def create_group
         g = Chef::Resource::Group.new(@new_resource.group, @run_context)
         g.run_action(:create)
       end
 
-      def create_group
+      def create_user
         u = Chef::Resource::User.new(@new_resource.user, @run_context)
+        u.home @new_resource.dst_dir
+        u.system true
         u.gid @new_resource.group
         u.run_action(:create)
       end
