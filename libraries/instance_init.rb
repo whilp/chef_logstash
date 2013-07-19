@@ -32,12 +32,12 @@ class Logstash
         logstash_service(@new_resource.name)
       end
 
-      def ls_dir
-        logstash_conf_dir(@new_resource.conf_dir, @new_resource.name)
+      def conf_dir
+        @new_resource.conf_dir || logstash_conf_dir(@new_resource.dst_dir, @new_resource.name)
       end
 
       def conf_file
-        logstash_config_file(@new_resource.conf_dir, @new_resource.name)
+        ::File.join('', conf_dir, '*.conf')
       end
 
       private
@@ -58,15 +58,15 @@ class Logstash
       end
 
       def enable_service
-        if ::File.directory?(ls_dir)
-          if logstash_has_configs?(ls_dir)
+        if ::File.directory?(conf_dir)
+          if logstash_has_configs?(conf_dir)
             s = Chef::Resource::Service.new(ls_svc, @run_context)
-            s.run_action([:enable, :start])
+            s.run_action(:enable, :start)
           else
-            Chef::Log.info("#{ ls_dir } has no configs. Not enabling #{ ls_svc }.")
+            Chef::Log.info("#{ conf_dir } has no configs. Not enabling #{ ls_svc }.")
           end
         else
-          Chef::Log.info("#{ ls_dir } does not exist. Not enabling #{ ls_svc }.")
+          Chef::Log.info("#{ conf_dir } does not exist. Not enabling #{ ls_svc }.")
         end
       end
 
