@@ -20,7 +20,9 @@ case "$1" in
     echo "Status <%= @name %>"
   ;;
 
-  echo "Usage $0 start|stop|status"
-  exit 1
+  *)
+    echo "Usage $0 {start|stop|status}"
+    exit 1
+
 esac
 exit 0
