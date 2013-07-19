@@ -69,15 +69,17 @@ class Chef
       end
 
       def plugin_type
-        @plugin_type ||= @new_resource.plugin_type.capitalize
+        @plugin_type ||= @new_resource.plugin_type
       end
 
       def plugin
-        @plugin ||= @new_resource.plugin.capitalize
+        @plugin ||= @new_resource.plugin
       end
 
       def lookup_plugin_class
-        klass = "Chef::Resource::Logstash#{ plugin_type }#{ plugin }"
+        plug = plugin.capitalize
+        type = plugin_type.capitalize
+        klass = "Chef::Resource::Logstash#{ type }#{ plug }"
         klass.split('::').reduce(Object) {|kls, t| kls.const_get(t) }
       end
 
