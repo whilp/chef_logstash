@@ -8,6 +8,8 @@ group :test do
   gem 'reek', '>= 1.3.1'
   gem 'tailor'
   gem 'test-kitchen', git: 'git://github.com/opscode/test-kitchen.git', branch: 'master'
+  gem 'busser'
+  gem 'busser-minitest'
   gem 'kitchen-vagrant'
   gem 'vagrant-berkshelf'
 end
