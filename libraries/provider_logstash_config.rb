@@ -33,6 +33,7 @@ class Chef
         create_conf_dir
         configure_plugin(@new_resource.plugin_config)
         create_conf_file
+        update_instance_resource_collection
         @new_resource.updated_by_last_action(true)
       end
 
@@ -58,6 +59,10 @@ class Chef
 
       def instance
         @instance ||= lookup_instance(@new_resource.instance, @run_context)
+      end
+
+      def update_instance_resource_collection
+        @instance.configs << @new_resource
       end
 
       def plugin_object
