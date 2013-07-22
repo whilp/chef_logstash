@@ -6,12 +6,15 @@ class Chef
   class Resource
     class LogstashInstance < Chef::Resource
 
+      attr_accessor :configs
+
       def initialize(name, run_context=nil)
         super
         @resource_name = :logstash_instance
         @provider = Chef::Provider::LogstashInstance
         @action = :create
         @allowed_actions = [:create, :destroy, :enable, :nothing]
+        @configs = Chef::ResourceCollection.new
       end
 
 
