@@ -30,6 +30,10 @@ class Chef
         @new_resource.updated_by_last_action(true)
       end
 
+      def action_update
+        instance(@new_resource.service_type, 'update')
+      end
+
       def action_destroy
         instance(@new_resource.install_type, 'disable')
         instance(@new_resource.service_type, 'uninstall')
