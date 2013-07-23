@@ -26,7 +26,7 @@ package 'openjdk-7-jre-headless'
       :path => ['/var/log/*.log'],
       :type => 'httpd'
     })
-    action [:create]
+    action [:create, :update]
   end
 
   logstash_config 'test_output' do
@@ -37,7 +37,7 @@ package 'openjdk-7-jre-headless'
       :path => '/var/log/logstash_test_log',
       :flush_interval => 0
     })
-    action [:create, :enable]
+    action [:create, :update, :enable]
   end
 
 end
