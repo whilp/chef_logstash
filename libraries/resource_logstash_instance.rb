@@ -13,7 +13,7 @@ class Chef
         @resource_name = :logstash_instance
         @provider = Chef::Provider::LogstashInstance
         @action = :create
-        @allowed_actions = [:create, :destroy, :enable, :nothing]
+        @allowed_actions = [:create, :destroy, :enable, :update, :nothing]
         @configs = Chef::ResourceCollection.new
       end
 
