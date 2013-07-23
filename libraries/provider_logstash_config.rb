@@ -47,6 +47,10 @@ class Chef
         instance.run_action(:enable)
       end
 
+      def action_update
+        instance.run_action(:update)
+      end
+
       private
 
       def conf_dir
