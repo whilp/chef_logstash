@@ -32,6 +32,8 @@ class Logstash
         disable_service
       end
 
+      private
+
       def jar_path
         logstash_jar_with_path(@new_resource.dst_dir, @new_resource.version)
       end
@@ -47,8 +49,6 @@ class Logstash
       def conf_file
         ::File.join('', conf_dir, '*.conf')
       end
-
-      private
 
       def create_service_script
         r = Chef::Resource::Template.new(logstash_service(@new_resource.name), @run_context)
