@@ -24,6 +24,10 @@ class Logstash
         enable_service
       end
 
+      def update
+        create_service_script
+      end
+
       def disable
         disable_service
       end
