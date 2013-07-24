@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 group :test do
-  gem 'chef'
+  gem 'chef', '>= 11.4.4'
   gem 'minitest'
   gem 'flog'
   gem 'rake'
