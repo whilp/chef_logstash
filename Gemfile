@@ -12,6 +12,7 @@ group :test do
   gem 'kitchen-vagrant'
   gem 'vagrant-berkshelf'
   gem 'rubocop'
+  gem 'coveralls'
 end
 
 group :generate_resources do

@@ -8,3 +8,6 @@ require 'minitest/pride'
 require File.expand_path('../../../libraries/resource_logstash_config', __FILE__)
 require File.expand_path('../../../libraries/provider_logstash_config', __FILE__)
 require File.expand_path('../../../libraries/inputs', __FILE__)
+
+require 'coveralls'
+Coveralls.wear!
