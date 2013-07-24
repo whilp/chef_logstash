@@ -78,10 +78,6 @@ class Chef
                       :default => 'init')
       end
 
-      def nofiles(arg=nil)
-        set_or_return(:nofiles, arg, :kind_of => Fixnum, :default => 1024)
-      end
-
     end
   end
 end
