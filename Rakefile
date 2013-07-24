@@ -1,14 +1,13 @@
 require 'rake'
 require 'rake/testtask'
-require 'tailor/rake_task'
 require 'reek/rake/task'
-
+require 'rubocop/rake_task'
 
 task :default => 'test:quick'
 
 namespace :test do
 
-  Tailor::RakeTask.new
+  Rubocop::RakeTask.new
 
   Rake::TestTask.new do |t|
     t.name = :minitest
