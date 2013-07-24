@@ -53,12 +53,12 @@ class Chef
 
       private
 
-      def conf_dir
-        @conf_dir ||= instance.conf_dir
+      def conf_file
+        @new_resource.conf_file ||= logstash_config_file(conf_dir, @new_resource.name)
       end
 
-      def conf_file
-        @conf_file ||= logstash_config_file(conf_dir, @new_resource.name)
+      def conf_dir
+        @conf_dir ||= instance.conf_dir
       end
 
       def instance
