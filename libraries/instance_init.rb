@@ -43,11 +43,7 @@ class Logstash
       end
 
       def conf_dir
-        @new_resource.conf_dir || logstash_conf_dir(@new_resource.dst_dir, @new_resource.name)
-      end
-
-      def conf_file
-        ::File.join('', conf_dir, '*.conf')
+        @conf_dir ||= @new_resource.conf_dir
       end
 
       def create_service_script
@@ -59,7 +55,7 @@ class Logstash
         r.owner    'root'
         r.group    'root'
         r.variables({
-            :conf_file       => conf_file,
+            :conf_dir        => conf_dir,
             :jar_path        => jar_path,
             :name            => @new_resource.name,
             :service_options => @new_resource.service_options,
