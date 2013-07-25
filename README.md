@@ -100,8 +100,9 @@ Usage example:
 ## Testing
 
 [![Build Status](https://travis-ci.org/miah/chef_logstash.png)](https://travis-ci.org/miah/chef_logstash)
-
 [![Code Climate](https://codeclimate.com/github/miah/chef_logstash.png)](https://codeclimate.com/github/miah/chef_logstash)
+[![Coverage Status](https://coveralls.io/repos/miah/chef_logstash/badge.png?branch=master)](https://coveralls.io/r/miah/chef_logstash?branch=master)
+
 ## Code Style
 
 This code follows the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) and all contributions should as well.
