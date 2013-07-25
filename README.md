@@ -28,9 +28,10 @@ and `:group` used to run Logstash. And finally it creates the `runit`
 resource required to manage the service. It does not _start_ the service
 as that is a job for `:enable`.
 
- + `:enable`
- + `:destroy`
- + `:nothing`
+ + `:enable` - Enables the specified `service_type` or the default `init`.
+ + `:update` - 
+ + `:destroy` - 
+ + `:nothing` - 
 
 These attributes are defined in the resource:
 
@@ -39,10 +40,14 @@ These attributes are defined in the resource:
  + `:group`
  + `:conf_dir`
  + `:dst_dir`
- + `:version`
- + `:url`
- + `:checksum`
- + `:nofiles`
+ + `:service_type` -
+ + `:service_options` -
+ + `:nofiles` - FIXME
+ + `:install_type` -
+ + `:install_options` -
+ + `:url` - FIXME (This should be specified as a `install_option`)
+ + `:version` - FIXME (This should be specified as a `install_option`)
+ + `:checksum` - FIXME (This should be specified as a `install_option`)
 
 Usage example:
 ```ruby
@@ -63,6 +68,7 @@ specified. The `plugin_config` attribute will be passed to the sub-resource
 during resource creation. We use the `instance` attribute to link this
 configuration to a specific Logstash instance.
  + `:enable` - Ensures the configuration for the specified instance has been loaded.
+ + `:update` - 
  + `:destroy` - Remove the named configuration.
  + `:nothing` - Does nothing, except define the resource with the associated
 attributes.
