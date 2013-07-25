@@ -1,14 +1,14 @@
 # chef_logstash cookbook
 
-This is a Library Style cookbook that provides Resource Providers to create and
+This is a Library Style cookbook that provides Chef Resource Providers to create and
 manage your [Logstash](http://logstash.net/) environment.
 
 # Requirements
 
-The following cookbooks are required to use this cookbook:
+The following cookbooks are suggested to use this cookbook:
 
-  + [runit](https://github.com/opscode-cookbooks/runit)
   + [java::openjdk](https://github.com/opscode-cookbooks/java)
+  + [runit](https://github.com/opscode-cookbooks/runit)
 
 # Usage
 
@@ -29,9 +29,9 @@ resource required to manage the service. It does not _start_ the service
 as that is a job for `:enable`.
 
  + `:enable` - Enables the specified `service_type` or the default `init`.
- + `:update` - 
- + `:destroy` - 
- + `:nothing` - 
+ + `:update` -
+ + `:destroy` -
+ + `:nothing` -
 
 These attributes are defined in the resource:
 
@@ -46,13 +46,12 @@ These attributes are defined in the resource:
  + `:install_options` -
 
 Usage example:
-```ruby
-  logstash_instance 'default' do
-    url      node.logstash.url
-    checksum node.logstash.checksum
-    action   [:create, :enable]
-  end
-```
+
+    logstash_instance 'default' do
+      url      node.logstash.service_options[:url]
+      checksum node.logstash.service_options[:checksum]
+      action   [:create, :enable]
+    end
 
 ## logstash_config
 
@@ -78,18 +77,17 @@ These attributes are defined in the resource:
 the plugin.
 
 Usage example:
-```ruby
-  logstash_config 'httpd_log_files' do
-    instance    'default'
-    plugin      'file'
-    plugin_type 'input'
-    plugin_config({
-      path => ['/var/log/httpd/*_log'],
-      type => 'httpd'
-    })
-    action [:create, :enable]
-  end
-```
+
+    logstash_config 'httpd_log_files' do
+      instance    'default'
+      plugin      'file'
+      plugin_type 'input'
+      plugin_config({
+        path => ['/var/log/httpd/*_log'],
+        type => 'httpd'
+      })
+      action [:create, :enable]
+    end
 
 # Contributing
 
@@ -103,7 +101,7 @@ Usage example:
 
 This code follows the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) and all contributions should as well.
 
-The code style is checked by [Rubocop](http://batsov.com/rubocop/) and can be checked by executing `rake test:rubocop` or `rubocop`. This is automatically checked by [Travis-CI](https://travis-ci.org/miah/chef_logstash).
+The code style is checked by [Rubocop](http://batsov.com/rubocop/) and can be checked by executing `rake test:rubocop` or `rubocop`.
 
 # Author
 
@@ -111,7 +109,10 @@ Author:: Miah Johnson (<miah@chia-pet.org>)
 
 # Donations
 
-[Gittip](https://www.gittip.com/miah/) [Bitcoin](bitcoin:1DT5XQrtAk1M9V5RodvEHddfe7Nqd1kMjN)
+[![Gittip](https://www.gittip.com/assets/9.4.5/logo.png)](https://www.gittip.com/miah/)
+
+[![Bitcoin](http://bitcoinprices.com/images/bitcoin.png)](bitcoin:1DT5XQrtAk1M9V5RodvEHddfe7Nqd1kMjN)
+
 # License
 
     Copyright 2013 Miah Johnson
