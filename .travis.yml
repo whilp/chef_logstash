@@ -1,6 +1,0 @@
-language: ruby
-script: rake test:minitest
-rvm:
-  - 1.9.3
-gemfile:
-  - Gemfile.travis
