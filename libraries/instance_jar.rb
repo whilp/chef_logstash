@@ -14,6 +14,9 @@ class Logstash
       def initialize(new_resource, run_context=nil)
         @new_resource = new_resource
         @run_context = run_context
+        @url = new_resource.install_options[:url]
+        @version = new_resource.install_options[:version]
+        @checksum = new_resource.install_options[:checksum]
       end
 
       def install
@@ -32,7 +35,7 @@ class Logstash
 
       def jar_was_modified_since?
         if ::File.exists?(jar_path)
-          uri = URI.parse(@new_resource.url)
+          uri = URI.parse( @url )
           file_mtime = ::Date.parse(::File.mtime(jar_path).to_s)
 
           http = Net::HTTP.new(uri.host, uri.port)
@@ -45,10 +48,10 @@ class Logstash
       end
 
       def fetch_logstash_jar
-        r = Chef::Resource::RemoteFile.new("logstash_#{ @new_resource.version }", @run_context)
+        r = Chef::Resource::RemoteFile.new("logstash_#{ @version  }", @run_context)
         r.path     jar_path
-        r.checksum @new_resource.checksum
-        r.source   @new_resource.url
+        r.checksum @checksum
+        r.source   @url
         r.owner    'root'
         r.group    'root'
         r.mode     00644
