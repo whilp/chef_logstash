@@ -1,4 +1,4 @@
-
+require 'chef/resource/service'
 require File.expand_path('../helpers', __FILE__)
 
 class Logstash

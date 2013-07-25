@@ -1,3 +1,5 @@
+require 'chef/resource/service'
+require 'chef/resource/template'
 
 require File.expand_path('../helpers', __FILE__)
 
