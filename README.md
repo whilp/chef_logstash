@@ -42,12 +42,8 @@ These attributes are defined in the resource:
  + `:dst_dir`
  + `:service_type` -
  + `:service_options` -
- + `:nofiles` - FIXME
  + `:install_type` -
  + `:install_options` -
- + `:url` - FIXME (This should be specified as a `install_option`)
- + `:version` - FIXME (This should be specified as a `install_option`)
- + `:checksum` - FIXME (This should be specified as a `install_option`)
 
 Usage example:
 ```ruby
