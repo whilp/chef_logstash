@@ -2,7 +2,7 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..'))
 require 'spec_helpers'
 
-describe 'ResourceLogstashConfig', 'Tests for Chef::Resource::Logstash::Config' do
+describe 'ResourceLogstashConfig', 'Tests for Chef::Resource::LogstashConfig' do
 
   let(:node) do
     node = Chef::Node.new
@@ -15,10 +15,10 @@ describe 'ResourceLogstashConfig', 'Tests for Chef::Resource::Logstash::Config' 
   let(:instance_name) { 'test_instance' }
 
   before :each do
-    @logstashconfig = Chef::Resource::Logstash::Config.new(instance_name, run_context)
+    @logstashconfig = Chef::Resource::LogstashConfig.new(instance_name, run_context)
   end
 
-  describe 'Parameter tests for Chef::Resource::Logstash::Config' do
+  describe 'Parameter tests for Chef::Resource::LogstashConfig' do
     it "has a 'instance' parameter that can be set" do
       assert_respond_to(@logstashconfig, :instance)
       @logstashconfig.instance('instance_name')

@@ -2,7 +2,7 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..'))
 require 'spec_helpers'
 
-describe 'ProviderLogstashConfig', 'Tests for Chef::Provider::Logstash::Config' do
+describe 'ProviderLogstashConfig', 'Tests for Chef::Provider::LogstashConfig' do
 
   let(:node) do
     node = Chef::Node.new
@@ -15,9 +15,9 @@ describe 'ProviderLogstashConfig', 'Tests for Chef::Provider::Logstash::Config' 
 
   let(:events) { Chef::EventDispatch::Dispatcher.new }
   let(:run_context) { Chef::RunContext.new(node, {}, events) }
-  let(:new_resource) { Chef::Resource::Logstash::Config.new(instance_name) }
-  let(:current_resource) { Chef::Resource::Logstash::Config.new(instance_name) }
-  let(:provider) { Chef::Provider::Logstash::Config.new(instance_name, run_context) }
+  let(:new_resource) { Chef::Resource::LogstashConfig.new(instance_name) }
+  let(:current_resource) { Chef::Resource::LogstashConfig.new(instance_name) }
+  let(:provider) { Chef::Provider::LogstashConfig.new(instance_name, run_context) }
 
   before :each do
     provider.stub(:load_current_resource).and_return(current_resource)
@@ -25,7 +25,7 @@ describe 'ProviderLogstashConfig', 'Tests for Chef::Provider::Logstash::Config' 
     provider.current_resource = current_resource
   end
 
-  describe 'Chef::Provider::Logstash::Config actions' do
+  describe 'Chef::Provider::LogstashConfig actions' do
 
     describe 'create' do
       it "has a 'create' action" do
