@@ -109,6 +109,9 @@ The code style is checked by [Rubocop](http://batsov.com/rubocop/) and can be ch
 
 Author:: Miah Johnson (<miah@chia-pet.org>)
 
+# Donations
+
+[Gittip](https://www.gittip.com/miah/) [Bitcoin](bitcoin:1DT5XQrtAk1M9V5RodvEHddfe7Nqd1kMjN)
 # License
 ```
    Copyright 2013 Miah Johnson
