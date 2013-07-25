@@ -1,7 +1,7 @@
 require 'date'
 require 'net/http'
 require 'uri'
-require 'chef/resources'
+require 'chef/resource'
 require File.expand_path('../helpers', __FILE__)
 
 class Logstash
