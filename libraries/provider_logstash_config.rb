@@ -4,8 +4,11 @@ require File.expand_path('../helpers', __FILE__)
 project_root = File.dirname(File.absolute_path(__FILE__))
 Dir.glob(project_root + '{input,filter,output}*.rb') { |file| require file }
 
+# Chef
 class Chef
+  # Chef Provider
   class Provider
+    # Provides actions for the LogstashConfig resource.
     class LogstashConfig < Chef::Provider
 
       include Helpers::Logstash
@@ -160,7 +163,9 @@ class Chef
   end
 end
 
+# Logstash
 class Logstash
+  # A hopefully valid logstash configuration generator.
   class ConfigGenerate
 
     attr_accessor :config, :plugin_type, :plugin
@@ -222,5 +227,6 @@ class Logstash
     def cfg_end
       '}'
     end
+
   end
 end

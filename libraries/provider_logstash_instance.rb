@@ -4,8 +4,11 @@ require File.expand_path('../helpers', __FILE__)
 dir = File.dirname(File.absolute_path(__FILE__))
 ::Dir.glob(dir + 'instance_*') { |f| require f }
 
+# Chef
 class Chef
+  # Chef Provider
   class Provider
+    # Provides actions for the LogstashInstance resource.
     class LogstashInstance < Chef::Provider
 
       def initialize(new_resource, run_context = nil)
