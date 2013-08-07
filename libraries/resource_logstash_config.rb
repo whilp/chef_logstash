@@ -10,7 +10,7 @@ class Chef
 
       attr_accessor :conf_file
 
-      def initialize(name, run_context=nil)
+      def initialize(name, run_context = nil)
         super
         @resource_name = :logstash_config
         @provider = Chef::Provider::LogstashConfig
@@ -22,20 +22,20 @@ class Chef
         @plugin_config = nil
       end
 
-      def instance(arg=nil)
-        set_or_return(:instance, arg, :kind_of => [String])
+      def instance(arg = nil)
+        set_or_return(:instance, arg, kind_of: [String])
       end
 
-      def plugin(arg=nil)
-        set_or_return(:plugin, arg, :kind_of => [String])
+      def plugin(arg = nil)
+        set_or_return(:plugin, arg, kind_of: [String])
       end
 
-      def plugin_type(arg=nil)
-        set_or_return(:plugin_type, arg, :kind_of => [String])
+      def plugin_type(arg = nil)
+        set_or_return(:plugin_type, arg, kind_of: [String])
       end
 
-      def plugin_config(arg=nil)
-        set_or_return(:plugin_config, arg, :kind_of => [Hash])
+      def plugin_config(arg = nil)
+        set_or_return(:plugin_config, arg, kind_of: [Hash])
       end
 
     end
