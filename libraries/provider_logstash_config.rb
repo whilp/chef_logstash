@@ -2,7 +2,7 @@ require 'chef/provider'
 require File.expand_path('../helpers', __FILE__)
 
 project_root = File.dirname(File.absolute_path(__FILE__))
-Dir.glob(project_root + '{input,filter,output}*.rb') {|file| require file}
+Dir.glob(project_root + '{input,filter,output}*.rb') { |file| require file }
 
 class Chef
   class Provider
@@ -10,7 +10,7 @@ class Chef
 
       include Helpers::Logstash
 
-      def initialize(new_resource, run_context=nil)
+      def initialize(new_resource, run_context = nil)
         @new_resource = new_resource
         @run_context = run_context
 
@@ -89,7 +89,7 @@ class Chef
         plug = plugin.capitalize
         type = plugin_type.capitalize
         klass = "Chef::Resource::Logstash#{ type }#{ plug }"
-        klass.split('::').reduce(Object) {|kls, t| kls.const_get(t) }
+        klass.split('::').reduce(Object) { |kls, t| kls.const_get(t) }
       end
 
       def render_conf_file(plugin_config)
@@ -108,14 +108,12 @@ class Chef
       # Instantiate plugin subclass
       # @param arg
       def configure_plugin(arg)
-        begin
-          # Iterate over the hash of resource arguments.
-          arg.each do |k, v|
-            plugin_object.send(k, v)
-          end
-        rescue RuntimeError => e
-          puts "There was an issue: #{ e }"
+        # Iterate over the hash of resource arguments.
+        arg.each do |k, v|
+          plugin_object.send(k, v)
         end
+      rescue RuntimeError => e
+        puts "There was an issue: #{ e }"
       end
 
       def create_conf_dir
@@ -171,7 +169,7 @@ class Logstash
       @config = ''
     end
 
-    def plugin_config(config={})
+    def plugin_config(config = {})
       @plugin_config ||= config
     end
 
@@ -222,7 +220,7 @@ class Logstash
     end
 
     def cfg_end
-      "}"
+      '}'
     end
   end
 end

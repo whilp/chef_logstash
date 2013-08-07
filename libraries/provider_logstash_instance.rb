@@ -8,7 +8,7 @@ class Chef
   class Provider
     class LogstashInstance < Chef::Provider
 
-      def initialize(new_resource, run_context=nil)
+      def initialize(new_resource, run_context = nil)
         @new_resource = new_resource
         @run_context = run_context
         super
@@ -78,7 +78,7 @@ class Chef
 
       def instance_sub_class(type)
         klass = "Logstash::Instance::#{ type.capitalize }"
-        klass.split('::').reduce(Object) {|kls, t| kls.const_get(t) }
+        klass.split('::').reduce(Object) { |kls, t| kls.const_get(t) }
       end
 
     end
