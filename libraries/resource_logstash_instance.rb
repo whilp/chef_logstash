@@ -39,18 +39,6 @@ class Chef
                       default: '/opt/logstash/instance')
       end
 
-      def version(arg = nil)
-        set_or_return(:version, arg, kind_of: String, default: '1.1.13')
-      end
-
-      def url(arg = nil)
-        set_or_return(:url, arg, kind_of: String, required: true)
-      end
-
-      def checksum(arg = nil)
-        set_or_return(:checksum, arg, kind_of: String, required: true)
-      end
-
       def install_options(arg = nil)
         set_or_return(:install_options, arg, kind_of: Hash)
       end
