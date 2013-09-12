@@ -37,7 +37,7 @@ class Logstash
       private
 
       def jar_path
-        logstash_jar_with_path(@new_resource.dst_dir, @new_resource.version)
+        logstash_jar_with_path(@new_resource.dst_dir, version)
       end
 
       def ls_svc
@@ -84,6 +84,10 @@ class Logstash
         s = Chef::Resource::Service.new(ls_svc, @run_context)
         s.run_action(:disable)
         s.run_action(:stop)
+      end
+
+      def version
+        @new_resource.install_options.fetch(:version) { :version_not_set }
       end
 
     end

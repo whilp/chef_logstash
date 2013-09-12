@@ -14,9 +14,10 @@ class Logstash
       def initialize(new_resource, run_context=nil)
         @new_resource = new_resource
         @run_context = run_context
-        @url = new_resource.install_options[:url]
-        @version = new_resource.install_options[:version]
-        @checksum = new_resource.install_options[:checksum]
+        @install_options = new_resource.install_options
+        @url = set_url
+        @version = set_version
+        @checksum = set_checksum
       end
 
       def install
@@ -30,7 +31,7 @@ class Logstash
       private
 
       def jar_path
-        logstash_jar_with_path(@new_resource.dst_dir, @new_resource.version)
+        logstash_jar_with_path(@new_resource.dst_dir, @version)
       end
 
       def jar_was_modified_since?
@@ -61,6 +62,18 @@ class Logstash
       def remove_logstash_jar
         f = Chef::Resource::File.new(jar_path, @run_context)
         f.run_action(:delete)
+      end
+
+      def set_url
+        @install_options.fetch(:url) { :url_not_set }
+      end
+
+      def set_version
+        @install_options.fetch(:version) { :version_not_set }
+      end
+
+      def set_checksum
+        @install_options.fetch(:checksum) { :checksum_not_set }
       end
 
     end
