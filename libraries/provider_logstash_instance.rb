@@ -12,9 +12,9 @@ class Chef
     class LogstashInstance < Chef::Provider
 
       def initialize(new_resource, run_context = nil)
+        super
         @new_resource = new_resource
         @run_context = run_context
-        super
       end
 
       def whyrun_supported?
