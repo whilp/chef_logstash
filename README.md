@@ -52,6 +52,7 @@ Usage example:
         url:      node.logstash.service_options.fetch(:url)
         checksum: node.logstash.service_options.fetch(:checksum)
         version:  node.logstash.install_options.fetch(:version)
+      })
       action   [:create, :enable]
     end
 
