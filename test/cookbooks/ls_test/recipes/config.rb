@@ -5,14 +5,13 @@ package 'openjdk-7-jre-headless'
   instance_dir = ::File.join('', 'opt', 'logstash', instance_name)
 
   logstash_instance instance_name do
-    url node.logstash.url
-    checksum node.logstash.checksum
     dst_dir instance_dir
     conf_dir ::File.join('', instance_dir, 'conf')
     install_type 'jar'
     install_options({
-      :url => node.logstash.url,
-      :checksum => node.logstash.checksum
+      :url => node.logstash.install_options.url,
+      :checksum => node.logstash.install_options.checksum,
+      :version => node.logstash.install_options.version
     })
     service_type 'init'
     action [:create]
