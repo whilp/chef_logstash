@@ -1,3 +1,11 @@
+# Notice
+
+This cookbook is under active development, and its public interface may change.
+
+What this warning means is that the attributes, and actions used by `logstash_instance`
+and `logstash_config` may drastically change. When using this cookbook please reference
+an exact SHA commit from this repository to ensure continuous functionality.
+
 # chef_logstash cookbook
 
 This is a Library Style cookbook that provides Chef Resource Providers to create and
