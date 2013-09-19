@@ -35,15 +35,15 @@ as that is a job for `:enable`.
 
 These attributes are defined in the resource:
 
- + `:name`
- + `:user`
- + `:group`
- + `:conf_dir`
- + `:dst_dir`
- + `:service_type` -
- + `:service_options` -
- + `:install_type` -
- + `:install_options` -
+ + `name`
+ + `user`
+ + `group`
+ + `conf_dir`
+ + `dst_dir`
+ + `service_type` -
+ + `service_options` -
+ + `install_type` -
+ + `install_options` -
 
 Usage example:
 
@@ -73,10 +73,10 @@ attributes.
 
 These attributes are defined in the resource:
 
- + `:instance` - The Logstash instance this plugin is associated with.
- + `:plugin` - One of the numerous [Logstash plugins](http://logstash.net/docs/1.1.9/).
- + `:plugin_type` - Accepts one of 'input', 'filter', 'output'
- + `:plugin_config`- A hash containing the key-value pairs that configure
+ + `instance` - The Logstash instance this plugin is associated with.
+ + `plugin` - One of the numerous [Logstash plugins](http://logstash.net/docs/1.1.9/).
+ + `plugin_type` - Accepts one of 'input', 'filter', 'output'
+ + `plugin_config`- A hash containing the key-value pairs that configure
 the plugin.
 
 Usage example:
