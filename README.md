@@ -49,8 +49,8 @@ Usage example:
 
     logstash_instance 'default' do
       install_options({
-        url:      node.logstash.install_options.fetch(:url)
-        checksum: node.logstash.install_options.fetch(:checksum)
+        url:      node.logstash.install_options.fetch(:url),
+        checksum: node.logstash.install_options.fetch(:checksum),
         version:  node.logstash.install_options.fetch(:version)
       })
       action   [:create, :enable]
