@@ -95,11 +95,11 @@ Usage example:
 # Contributing
 
   1. Fork it.
-  2. Create a branch (`git checkout -b my_markup`)
-  3. Commit your changes (`git commit -am "Added Snarkdown"`)
-  4. Push to the branch (`git push origin my_markup`)
+  2. Create a branch (`git checkout -b my_changes`)
+  3. Commit your changes (`git commit -am "Added Snark"`)
+  4. Push to the branch (`git push origin my_changes`)
   5. Open a [Pull Request][1]
-  6. Enjoy a refreshing Diet Coke and wait
+  6. Enjoy a refreshing [Slurm](http://futurama.wikia.com/wiki/Slurm) and wait
 
 ## Testing
 
