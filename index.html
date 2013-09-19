@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Chef logstash by miah</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Chef logstash</h1>
+        <p>Chef Cookbook with Resource Providers to manage Logstash</p>
+
+        <p class="view"><a href="https://github.com/miah/chef_logstash">View the Project on GitHub <small>miah/chef_logstash</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/miah/chef_logstash/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/miah/chef_logstash/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/miah/chef_logstash">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="chef_logstash-cookbook" class="anchor" href="#chef_logstash-cookbook"><span class="octicon octicon-link"></span></a>chef_logstash cookbook</h1>
+
+<p>This is a Library Style cookbook that provides Chef Resource Providers to create and
+manage your <a href="http://logstash.net/">Logstash</a> environment.</p>
+
+<h1>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h1>
+
+<p>The following cookbooks are suggested to use this cookbook:</p>
+
+<ul>
+<li><a href="https://github.com/opscode-cookbooks/java">java::openjdk</a></li>
+<li><a href="https://github.com/opscode-cookbooks/runit">runit</a></li>
+</ul><h1>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h1>
+
+<h1>
+<a name="resources-and-providers" class="anchor" href="#resources-and-providers"><span class="octicon octicon-link"></span></a>Resources and Providers</h1>
+
+<h2>
+<a name="logstash_instance" class="anchor" href="#logstash_instance"><span class="octicon octicon-link"></span></a>logstash_instance</h2>
+
+<p>The intention is to provide a stable interface to creating instances of
+Logstash on your servers. This means creating a instance via
+<code>logstash_instance</code> will download, install, and setup a functional
+instance of Logstash but it does not handle any configuration details.</p>
+
+<p>The following actions are supported and <code>:create</code> is the default:</p>
+
+<ul>
+<li><p><code>:create</code> - Creates a named instance of Logstash. This action will
+download logstash <code>:version</code> to the <code>:dst_dir</code>. It creates the <code>:user</code>
+and <code>:group</code> used to run Logstash. And finally it creates the <code>runit</code>
+resource required to manage the service. It does not <em>start</em> the service
+as that is a job for <code>:enable</code>.</p></li>
+<li><p><code>:enable</code> - Enables the specified <code>service_type</code> or the default <code>init</code>.</p></li>
+<li><p><code>:update</code> -</p></li>
+<li><p><code>:destroy</code> -</p></li>
+<li><p><code>:nothing</code> -</p></li>
+</ul><p>These attributes are defined in the resource:</p>
+
+<ul>
+<li><code>:name</code></li>
+<li><code>:user</code></li>
+<li><code>:group</code></li>
+<li><code>:conf_dir</code></li>
+<li><code>:dst_dir</code></li>
+<li>
+<code>:service_type</code> -</li>
+<li>
+<code>:service_options</code> -</li>
+<li>
+<code>:install_type</code> -</li>
+<li>
+<code>:install_options</code> -</li>
+</ul><p>Usage example:</p>
+
+<pre><code>logstash_instance 'default' do
+  install_options({
+    url:      node.logstash.install_options.fetch(:url)
+    checksum: node.logstash.install_options.fetch(:checksum)
+    version:  node.logstash.install_options.fetch(:version)
+  })
+  action   [:create, :enable]
+end
+</code></pre>
+
+<h2>
+<a name="logstash_config" class="anchor" href="#logstash_config"><span class="octicon octicon-link"></span></a>logstash_config</h2>
+
+<p>The following actions are supported and <code>:create</code> is the default:</p>
+
+<ul>
+<li>
+<code>:create</code> - Creates a named configuration for a specific Logstash plugin.
+This action will create a sub-resource based on the <code>plugin_type</code> and <code>plugin</code>
+specified. The <code>plugin_config</code> attribute will be passed to the sub-resource
+during resource creation. We use the <code>instance</code> attribute to link this
+configuration to a specific Logstash instance.</li>
+<li>
+<code>:enable</code> - Ensures the configuration for the specified instance has been loaded.</li>
+<li>
+<code>:update</code> -</li>
+<li>
+<code>:destroy</code> - Remove the named configuration.</li>
+<li>
+<code>:nothing</code> - Does nothing, except define the resource with the associated
+attributes.</li>
+</ul><p>These attributes are defined in the resource:</p>
+
+<ul>
+<li>
+<code>:instance</code> - The Logstash instance this plugin is associated with.</li>
+<li>
+<code>:plugin</code> - One of the numerous <a href="http://logstash.net/docs/1.1.9/">Logstash plugins</a>.</li>
+<li>
+<code>:plugin_type</code> - Accepts one of 'input', 'filter', 'output'</li>
+<li>
+<code>:plugin_config</code>- A hash containing the key-value pairs that configure
+the plugin.</li>
+</ul><p>Usage example:</p>
+
+<pre><code>logstash_config 'httpd_log_files' do
+  instance    'default'
+  plugin      'file'
+  plugin_type 'input'
+  plugin_config({
+    path =&gt; ['/var/log/httpd/*_log'],
+    type =&gt; 'httpd'
+  })
+  action [:create, :enable]
+end
+</code></pre>
+
+<h1>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h1>
+
+<h2>
+<a name="testing" class="anchor" href="#testing"><span class="octicon octicon-link"></span></a>Testing</h2>
+
+<p><a href="https://travis-ci.org/miah/chef_logstash"><img src="https://travis-ci.org/miah/chef_logstash.png" alt="Build Status"></a>
+<a href="https://codeclimate.com/github/miah/chef_logstash"><img src="https://codeclimate.com/github/miah/chef_logstash.png" alt="Code Climate"></a>
+<a href="https://coveralls.io/r/miah/chef_logstash?branch=master"><img src="https://coveralls.io/repos/miah/chef_logstash/badge.png?branch=master" alt="Coverage Status"></a></p>
+
+<h2>
+<a name="code-style" class="anchor" href="#code-style"><span class="octicon octicon-link"></span></a>Code Style</h2>
+
+<p>This code follows the <a href="https://github.com/bbatsov/ruby-style-guide">Ruby Style Guide</a> and all contributions should as well.</p>
+
+<p>The code style is checked by <a href="http://batsov.com/rubocop/">Rubocop</a> and can be checked by executing <code>rake test:rubocop</code> or <code>rubocop</code>.</p>
+
+<h1>
+<a name="author" class="anchor" href="#author"><span class="octicon octicon-link"></span></a>Author</h1>
+
+<p>Author:: Miah Johnson (<a href="mailto:miah@chia-pet.org">miah@chia-pet.org</a>)</p>
+
+<h1>
+<a name="donations" class="anchor" href="#donations"><span class="octicon octicon-link"></span></a>Donations</h1>
+
+<p><a href="https://www.gittip.com/miah/"><img src="https://www.gittip.com/assets/9.4.5/logo.png" alt="Gittip"></a></p>
+
+<p><a><img src="http://bitcoinprices.com/images/bitcoin.png" alt="Bitcoin"></a></p>
+
+<h1>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
+
+<pre><code>Copyright 2013 Miah Johnson
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</code></pre>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/miah">miah</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
