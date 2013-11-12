@@ -20,6 +20,13 @@ class Chef
         @plugin = nil
         @plugin_type = nil
         @plugin_config = nil
+
+        state_attrs(
+                    :instance,
+                    :plugin,
+                    :plugin_type,
+                    :plugin_config,
+                    )
       end
 
       def instance(arg = nil)

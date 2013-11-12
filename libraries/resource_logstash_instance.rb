@@ -15,6 +15,17 @@ class Chef
         @action = :create
         @allowed_actions = [:create, :destroy, :enable, :update, :nothing]
         @configs = Chef::ResourceCollection.new
+
+        state_attrs(
+                    :user,
+                    :group,
+                    :conf_dir,
+                    :dst_dir,
+                    :install_options,
+                    :install_type,
+                    :service_options,
+                    :service_type,
+                    )
       end
 
       def user(arg = nil)
